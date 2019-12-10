@@ -30,6 +30,8 @@ class mesa_v1(db.Model):
   numero = db.Column(db.String(2), default='00')
   ordem = db.Column(db.Integer(), default=0)
 
+  desc = db.Column(db.Text(), nullable=True)
+
   def get_id(self):
     return self.id
   def __repr__(self):
@@ -45,6 +47,8 @@ class cadeira_v1(db.Model):
   ordem = db.Column(db.Integer(), default=0)
 
   id_mesa = db.Column(db.String(36), db.ForeignKey(mesa_v1.id))
+
+  desc = db.Column(db.Text(), nullable=True)
 
   def get_id(self):
     return self.id

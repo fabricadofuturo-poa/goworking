@@ -3,79 +3,107 @@
 {% block css %}
 {% endblock %}
 {% block main %}
-<div class="container">
-<h1>{{ title }}</h1>
-<h2>Adicionar / editar cadeira</h2>
-<form action="" method="post">
-  {{ form.hidden_tag() }}
-  {{ form.csrf_token }}
-  <div class="form-row">
-    <div class="col-6">
-      {{ form.numero(size=15, placeholder=form.numero.description) }}
-      <label>{{ form.numero.label }}</label>
-    </div>
-    <div class="col-6">
-      {% for error in form.numero.errors %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-6">
-      {{ form.ordem(size=15, placeholder=form.ordem.description) }}
-      <label>{{ form.ordem.label }}</label>
-    </div>
-    <div class="col-6">
-      {% for error in form.ordem.errors %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-6">
-      {{ form.id_mesa }}
-      <label>{{ form.id_mesa.label }}</label>
-    </div>
-    <div class="col-6">
-      {% for error in form.id_mesa.errors %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
+<div class="container-fluid">
+  <center>
+  <div class="row">
     <div class="col-12">
-      {{ form.submit(class="btn btn-primary") }}
-    </div>
-  </div>
-</form>
-</div>
-<hr>
-<div class="lista-pedidos">
-<table class="table table-striped">
-<thead>
-<tr>
-  <th scope="col">id</th>
-  <th scope="col">numero</th>
-  <th scope="col">ordem</th>
-  <th scope="col">id_mesa</th>
-</tr>
-</thead>
-<tbody>
-{% for cadeira in cadeiras %}
-<tr>
-<th class="row">
-{{ cadeira.id }}
-</th>
-
-<td>{{ cadeira.numero }}</td>
-<td>{{ cadeira.ordem }}</td>
-<td><a href="{{ url_for('goworking.mesa', mesa=cadeira.id_mesa) }}" target="_self">{{ cadeira.id_mesa }}</a></td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-</div>
-</div>
+      <h2>{{ subtitle }}</h2>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12">
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.numero.label }}
+            {{ form.numero(size=45, placeholder=form.numero.description) }}
+            {% for error in form.numero.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="col-3">&nbsp;</div>
+          <div class="form-group col-2">
+            {{ form.ordem.label }}
+            {% for error in form.ordem.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-2 -->
+          {% for subfield in form.ordem %}
+          <div class="form-check col-1">
+              {{ subfield.label }}
+              {{ subfield }}
+          </div> <!-- form-check col-1 -->
+          {% endfor %}
+          <div class="col-3">&nbsp;</div>
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.desc.label }}
+            {{ form.desc(placeholder=form.desc.description) }}
+            {% for error in form.desc.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.id_mesa.label }}
+            {{ form.id_mesa }}
+            {% for error in form.id_mesa.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.submit() }}
+            <a role="button" class="btn btn-danger" href="{{ url_for('goworking.cadeira') }}" target="_self">Cancelar</a>
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+      </form>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  </center>
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ title }}</h1>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="table-borderless thead-light">
+          <tr>
+            <th>Ações</th>
+            <th>N&uacute;mero</th>
+            <th>Ordem</th>
+            <th>Descri&ccedil;&atilde;o</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cadeira in cadeiras %}
+          <tr>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.cadeira_editar', cadeira_id=cadeira.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.cadeira_apagar', cadeira_id=cadeira.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+              </div>
+            </td>
+            <td>{{ cadeira.numero }}</td>
+            <td>{{ cadeira.ordem }}</td>
+            <td>{{ cadeira.desc }}</td>
+            <td><a href="{{ url_for('goworking.mesa', mesa=cadeira.id_mesa) }}" target="_self">{{ cadeira.id_mesa }}</a></td>
+          </tr>
+          {% endfor %} <!-- cadeira in cadeiras -->
+        </tbody>
+      </table>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+</div> <!-- container -->
 {% endblock %}
 {% block javascript %}
 {% endblock %}

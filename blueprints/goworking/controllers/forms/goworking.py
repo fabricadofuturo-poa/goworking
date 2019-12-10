@@ -62,42 +62,42 @@ ordens_cadeiras = [
 ]
 
 ordens_mesas = [
-  ('-3', u"-3 (auditório)"),
-  ('-2', u"-2 (jardim)"),
-  ('-1', u"-1 (jardim)"),
-  ('0', u"0 (jardim"),
-  ('1', u"1 (auditório)"),
-  ('2', u"2 (auditório)"),
-  ('3', u"3"),
-  ('4', u"4"),
-  ('5', u"5 (auditório)"),
-  ('6', u"6 (auditório)"),
-  ('7', u"7"),
-  ('8', u"8"),
-  ('9', u"9 (corredor)"),
-  ('10', u"10 (corredor)"),
-  ('11', u"11"),
-  ('12', u"12"),
-  ('13', u"13 (banheiro masculino)"),
-  ('14', u"14 (banheiro chuveiros)"),
-  ('15', u"15"),
-  ('16,' u"16"),
-  ('17', u"17 (banheiro feminino)"),
-  ('18', u"18 (banheiro pcd)"),
-  ('19', u"19"),
-  ('20', u"20"),
-  ('21', u"21 (banheiro feminino)"),
-  ('22', u"22 (corredor parede grafitada)"),
-  ('23', u"23"),
-  ('24', u"24"),
-  ('25', u"25"),
-  ('26', u"26"),
-  ('27', u"27"),
-  ('28', u"28"),
-  ('29', u"29"),
-  ('30', u"30"),
-  ('31', u"31"),
-  ('32', u"32"),
+  (0, u"0 (auditório)"),
+  (1, u"1 (jardim)"),
+  (2, u"2 (jardim)"),
+  (3, u"3 (jardim"),
+  (4, u"4 (auditório)"),
+  (5, u"5 (auditório)"),
+  (6, u"6"),
+  (7, u"7"),
+  (8, u"8 (auditório)"),
+  (9, u"9 (auditório)"),
+  (10, u"10"),
+  (11, u"11"),
+  (12, u"12 (corredor)"),
+  (13, u"13 (corredor)"),
+  (14, u"14"),
+  (15, u"15"),
+  (16, u"16 (banheiro masculino)"),
+  (17, u"17 (banheiro chuveiros)"),
+  (18, u"18"),
+  (19, u"19"),
+  (20, u"20 (banheiro feminino)"),
+  (21, u"21 (banheiro pcd)"),
+  (22, u"22"),
+  (23, u"23"),
+  (24, u"24 (banheiro feminino)"),
+  (25, u"25 (corredor parede grafitada)"),
+  (26, u"26"),
+  (27, u"27"),
+  (28, u"28"),
+  (29, u"29"),
+  (30, u"30"),
+  (31, u"31"),
+  (32, u"32"),
+  (33, u"33"),
+  (34, u"34"),
+  (35, u"35"),
 ]
 
 def mesas():
@@ -121,26 +121,52 @@ class NovaMesaForm(FlaskForm):
       'oninput': 'this.setCustomValidity("");',
     }),
   )
+  desc = TextAreaField(
+    u"Descrição",
+    description=u"Escreva o que quiser sobre a mesa aqui, depois a \
+      gente vai organizando em outros campos conforme a necessidade ;)",
+    validators = [Optional()],
+    render_kw=({
+      'rows': '6',
+      'cols': '45',
+    }),
+  )
   ordem = SelectField(u"Posição da mesa no go working", coerce=int, choices=ordens_mesas)
-  submit = SubmitField(u"Cadastrar / Atualizar")
+  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
 
 class EditarMesaForm(NovaMesaForm):
   id = StringField(widget=HiddenInput())
+  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
 
 class NovaCadeiraForm(FlaskForm):
   numero = StringField(
-    u"Número - Exemplo: 01-A para a cadeira A da mesa 01",
+    u"Número",
     validators = [
       DataRequired(message = u"Exemplo: 01-A para a cadeira A da mesa 01"),
     ],
-    description='01-A',
+    description='Exemplo: 01-A para a cadeira A da mesa 01',
     render_kw=({
       'oninvalid': 'this.setCustomValidity("Exemplo: 01-A para a cadeira A da \
         mesa 01");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
-  ordem = RadioField(u"Posição da cadeira", coerce=int, choices=ordens_cadeiras)
+  ordem = RadioField(
+    u"Posição da cadeira",
+    coerce=int,
+    choices=ordens_cadeiras,
+    render_kw=({'class': 'form-group'})
+  )
+  desc = TextAreaField(
+    u"Descrição",
+    description=u"Escreva o que quiser sobre a cadeira aqui, depois a \
+      gente vai organizando em outros campos conforme a necessidade ;)",
+    validators = [Optional()],
+    render_kw=({
+      'rows': '6',
+      'cols': '45',
+    }),
+  )
   id_mesa = QuerySelectField(
     u"Mesa",
     query_factory=mesas,
@@ -156,10 +182,11 @@ class NovaCadeiraForm(FlaskForm):
       'oninput': 'this.setCustomValidity("");',
     }),
   )
-  submit = SubmitField(u"Cadastrar / Atualizar")
+  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
 
 class EditarCadeiraForm(NovaCadeiraForm):
   id = StringField(widget=HiddenInput())
+  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
 
 class NovaEmpresaForm(FlaskForm):
   nome = StringField(
@@ -184,7 +211,8 @@ class NovaEmpresaForm(FlaskForm):
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre a empresa aqui, depois a gente vai organizando em outros campos conforme a necessidade ;)",
+    description=u"Escreva o que quiser sobre a empresa aqui, depois a gente \
+      vai organizando em outros campos conforme a necessidade ;)",
     validators = [Optional()],
     render_kw=({
       'rows': '6',
@@ -220,7 +248,8 @@ class NovaHabitanteForm(FlaskForm):
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre a(o) habitante aqui, depois a gente vai organizando em outros campos conforme a necessidade ;)",
+    description=u"Escreva o que quiser sobre a(o) habitante aqui, depois a \
+      gente vai organizando em outros campos conforme a necessidade ;)",
     validators = [Optional()],
     render_kw=({
       'rows': '6',

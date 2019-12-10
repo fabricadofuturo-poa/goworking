@@ -3,66 +3,90 @@
 {% block css %}
 {% endblock %}
 {% block main %}
-<div class="container">
-<h1>{{ title }}</h1>
-<h2>Adicionar / editar mesa</h2>
-<form action="" method="post">
-  {{ form.hidden_tag() }}
-  {{ form.csrf_token }}
-  <div class="form-row">
-    <div class="col-6">
-      {{ form.numero(size=15, placeholder=form.numero.description) }}
-      <label>{{ form.numero.label }}</label>
-    </div>
-    <div class="col-6">
-      {% for error in form.numero.errors %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-6">
-      {{ form.ordem }}
-      <label>{{ form.ordem.label }}</label>
-    </div>
-    <div class="col-6">
-      {% for error in form.ordem.errors %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
+<div class="container-fluid">
+  <center>
+  <div class="row">
     <div class="col-12">
-      {{ form.submit(class="btn btn-primary") }}
-    </div>
-  </div>
-</form>
-</div>
-<hr>
-<div class="lista-pedidos">
-<table class="table table-striped">
-<thead>
-<tr>
-  <th scope="col">id</th>
-  <th scope="col">numero</th>
-  <th scope="col">ordem</th>
-</tr>
-</thead>
-<tbody>
-{% for mesa in mesas %}
-<tr>
-<th class="row">
-{{ mesa.id }}
-</th>
-
-<td>{{ mesa.numero }}</td>
-<td>{{ mesa.ordem }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-</div>
-</div>
+      <h2>{{ subtitle }}</h2>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12">
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.numero.label }}
+            {{ form.numero(size=30, placeholder=form.numero.description) }}
+            {% for error in form.numero.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.ordem.label }}
+            {{ form.ordem }}
+            {% for error in form.ordem.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.desc.label }}
+            {{ form.desc(placeholder=form.desc.description) }}
+            {% for error in form.desc.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.submit() }}
+            <a role="button" class="btn btn-danger" href="{{ url_for('goworking.mesa') }}" target="_self">Cancelar</a>
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+      </form>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  </center>
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ title }}</h1>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="table-borderless thead-light">
+          <tr>
+            <th>Ações</th>
+            <th>N&uacute;mero</th>
+            <th>Ordem</th>
+            <th>Descri&ccedil;&atilde;o</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mesa in mesas %}
+          <tr>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.mesa_editar', mesa_id=mesa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.mesa_apagar', mesa_id=mesa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+              </div>
+            </td>
+            <td>{{ mesa.numero }}</td>
+            <td>{{ mesa.ordem }}</td>
+            <td>{{ mesa.desc }}</td>
+          </tr>
+          {% endfor %} <!-- mesa in mesas -->
+        </tbody>
+      </table>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+</div> <!-- container -->
 {% endblock %}
 {% block javascript %}
 {% endblock %}
