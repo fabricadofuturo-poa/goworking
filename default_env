@@ -2,3 +2,4 @@
 FLASK_ENV=development
 #FLASK_APP=app
 #DATABASE_URL=sqlite:////home/user/git/fabricadofuturo/goworking-mesas/instance/goworking.db
+#DATABASE_URL=mysql+pymysql://usuario:senha@localhost/goworking

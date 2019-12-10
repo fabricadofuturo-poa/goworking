@@ -1,53 +1,45 @@
 {% extends "default_layout.html" %}
 {% block title %}{{ title }}{% endblock %}
 {% block css %}
-<!--<link rel="stylesheet" href="{{ url_for('.static', filename='css/login.css') }}" />-->
 {% endblock %}
 {% block main %}
-<div class="container">
+<center>
+<div class="container-fluid">
 <h1>{{ title }}</h1>
 <form action="" method="post">
   {{ form.hidden_tag() }}
   {{ form.csrf_token }}
   <div class="form-row">
-    <div class="col-6">
-      {{ form.username(size=15, placeholder=form.username.description) }}
-      <label>{{ form.username.label }}</label>
-    </div>
-    <div class="col-6">
+    <div class="form-group col-12">
+      {{ form.username.label }}
+      {{ form.username(placeholder=form.username.description) }}
       {% for error in form.username.errors %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endfor %}
     </div>
   </div>
   <div class="form-row">
-    <div class="col-6">
-      {{ form.password(size=15, placeholder=form.password.description) }}
-      <label>{{ form.password.label }}</label>
-    </div>
-    <div class="col-6">
+    <div class="form-group col-12">
+      {{ form.password.label }}
+      {{ form.password(placeholder=form.password.description) }}
       {% for error in form.password.errors %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endfor %}
     </div>
   </div>
   <div class="form-row">
-    <div class="col-6">
-      {{ form.confirm(size=15, placeholder=form.confirm.description) }}
-      <label>{{ form.confirm.label }}</label>
-    </div>
-    <div class="col-6">
+    <div class="form-group col-12">
+      {{ form.confirm.label }}
+      {{ form.confirm(placeholder=form.confirm.description) }}
       {% for error in form.confirm.errors %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endfor %}
     </div>
   </div>
   <div class="form-row">
-    <div class="col-6">
+    <div class="form-group col-12">
+      {{ form.nome.label }}
       {{ form.nome(size=30, placeholder=form.nome.description) }}
-      <label>{{ form.nome.label }}</label>
-    </div>
-    <div class="col-6">
       {% for error in form.nome.errors %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endfor %}
@@ -74,27 +66,23 @@
 <!--    </div>-->
 <!--  </div>-->
   <div class="form-row">
-    <div class="col-6">
+    <div class="form-group col-12">
       {{ form.mr_robot() }} {{ form.mr_robot.label }}
     </div>
-    <div class="col-6">
+    <div class="form-group col-12">
       {% for error in form.mr_robot.errors %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>
       {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-12">
       {{ form.submit(class="btn btn-primary") }}
     </div>
   </div>
 </form>
 <hr>
 <div class="row">
-  <div class="col-3">J&aacute; se registrou&quest;</div>
-  <div class="col-3"><a class="btn btn-secondary" role="button" href="{{ url_for('goworking.login') }}">Fa&ccedil;a login agora&excl;</a></div>
+  <div class="col-12">J&aacute; se registrou&quest; Fa&ccedil;a <a class="btn btn-success btn-sm" role="button" href="{{ url_for('goworking.login') }}">login</a> agora&excl;</div>
 </div>
 </div>
+</center>
 {% endblock %}
 {% block javascript %}
 {% endblock %}

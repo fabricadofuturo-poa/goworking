@@ -31,32 +31,26 @@
         <a class="nav-link" target="_self" href="{{ url_for('goworking.index') }}">GoWorking</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" target="_self" href="{{ url_for('goworking.login') }}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" target="_self" href="{{ url_for('goworking.signup') }}">Registrar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" target="_self" href="{{ url_for('goworking.logout') }}">Logout</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" target="_self" href="#">Automatizar</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" target="_self" href="{{ url_for('goworking.empresa') }}">Empresas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" target="_self" href="{{ url_for('goworking.habitante') }}">Habitantes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" target="_self" href="{{ url_for('goworking.mesa') }}">Mesas</a>
+        <a class="nav-link disabled" target="_self" href="{{ url_for('goworking.mesa') }}">Mesas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" target="_self" href="{{ url_for('goworking.cadeira') }}">Cadeiras</a>
+        <a class="nav-link disabled" target="_self" href="{{ url_for('goworking.cadeira') }}">Cadeiras</a>
       </li>
       {% block nav %}
       {% endblock %}
     </ul>
+    <span>&nbsp;</span>
+    <a class="badge badge-pill badge-success" target="_self" href="{{ url_for('goworking.login') }}">Login</a>
+    <span>&nbsp;</span>
+    <a class="badge badge-pill badge-secondary" target="_self" href="{{ url_for('goworking.signup') }}">Registrar</a>
+    <span>&nbsp;</span>
+    <a class="badge badge-pill badge-danger" target="_self" href="{{ url_for('goworking.logout') }}">Logout</a>
   </div>
 </nav>
 <!-- conteúdo -->

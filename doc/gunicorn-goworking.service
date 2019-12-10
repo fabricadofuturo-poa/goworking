@@ -1,0 +1,15 @@
+[Unit]
+Description=goworking-mesas gunicorn
+After=network.target nss-lookup.target
+
+[Service]
+Type=simple
+Environment="LC_ALL=C.UTF-8"
+Environment="LANG=C.UTF-8"
+ExecStart=/usr/local/bin/pipenv run gunicorn app:app
+WorkingDirectory=/var/www/git/fabricadofuturo/goworking-mesas
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
