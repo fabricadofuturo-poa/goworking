@@ -1,0 +1,93 @@
+{% extends "default_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block main %}
+<div class="container-fluid">
+  <center>
+  <div class="row">
+    <div class="col-12">
+      <h2>{{ subtitle }}</h2>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12">
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.nome.label }}
+            {{ form.nome(size=30, placeholder=form.nome.description) }}
+            {% for error in form.nome.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.cnpj.label }}
+            {{ form.cnpj(size=30, placeholder=form.cnpj.description) }}
+            {% for error in form.cnpj.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.desc.label }}
+            {{ form.desc(placeholder=form.desc.description) }}
+            {% for error in form.desc.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.submit() }}
+            <a role="button" class="btn btn-danger" href="{{ url_for('goworking.empresa') }}" target="_self">Cancelar</a>
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+      </form>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  </center>
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ title }}</h1>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="table-borderless thead-light">
+          <tr>
+            <th>Ações</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Descri&ccedil;&atilde;o</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for empresa in empresas %}
+          <tr>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.empresa_editar', empresa_id=empresa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.empresa_apagar', empresa_id=empresa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+              </div>
+            </td>
+            <td>{{ empresa.nome }}</td>
+            <td>{{ empresa.cnpj }}</td>
+            <td>{{ empresa.desc }}</td>
+          </tr>
+          {% endfor %} <!-- empresa in empresas -->
+        </tbody>
+      </table>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+</div> <!-- container -->
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+

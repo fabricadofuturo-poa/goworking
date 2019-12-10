@@ -1,0 +1,4 @@
+## Renomear este arquivo para .env
+FLASK_ENV=development
+#FLASK_APP=app
+#DATABASE_URL=sqlite:////home/user/git/fabricadofuturo/goworking-mesas/instance/goworking.db

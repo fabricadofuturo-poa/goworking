@@ -1,0 +1,69 @@
+{% extends "default_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block main %}
+<div class="container">
+<h1>{{ title }}</h1>
+<h2>Adicionar / editar mesa</h2>
+<form action="" method="post">
+  {{ form.hidden_tag() }}
+  {{ form.csrf_token }}
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.numero(size=15, placeholder=form.numero.description) }}
+      <label>{{ form.numero.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.numero.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.ordem }}
+      <label>{{ form.ordem.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.ordem.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-12">
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </div>
+</form>
+</div>
+<hr>
+<div class="lista-pedidos">
+<table class="table table-striped">
+<thead>
+<tr>
+  <th scope="col">id</th>
+  <th scope="col">numero</th>
+  <th scope="col">ordem</th>
+</tr>
+</thead>
+<tbody>
+{% for mesa in mesas %}
+<tr>
+<th class="row">
+{{ mesa.id }}
+</th>
+
+<td>{{ mesa.numero }}</td>
+<td>{{ mesa.ordem }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+

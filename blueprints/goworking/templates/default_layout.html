@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="pt_BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+{% if description %}<meta name="description" content="{{ description }}" />{% endif %}
+{% if authors %}
+{% for author in autors %}
+<meta name="author" content="{{ author }}" />
+{% endfor %}
+{% elif author %}
+<meta name="author" content="{{ author }}" />
+{% endif %}
+<title>Fábrica do Futuro - Goworking - {% block title %}{{ title }}{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/fabricadofuturo.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/goworking.css') }}">
+<!-- css-js extra -->
+{% block css %}
+{% endblock %}
+<!-- /css-js extra -->
+</head>
+<body>
+<nav class="navbar sticky-top navbar-light bg-light nav-justified navbar-expand-lg" id="header">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarToggler">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.index') }}">GoWorking</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.login') }}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.signup') }}">Registrar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.logout') }}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" target="_self" href="#">Automatizar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.empresa') }}">Empresas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.habitante') }}">Habitantes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.mesa') }}">Mesas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" target="_self" href="{{ url_for('goworking.cadeira') }}">Cadeiras</a>
+      </li>
+      {% block nav %}
+      {% endblock %}
+    </ul>
+  </div>
+</nav>
+<!-- conteúdo -->
+<div class="conteudo">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="mensagens">
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+{% block main %}
+{% endblock %}
+</div>
+<!-- /conteúdo -->
+<footer>
+<!--
+  OBS: quem não gosta de javascript não reclama, bloqueia!
+  https://addons.mozilla.org/pt-BR/firefox/addon/noscript/
+  https://addons.mozilla.org/pt-BR/firefox/addon/ghostery/
+  https://addons.mozilla.org/pt-BR/firefox/addon/ublock-origin/
+  https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
+ -->
+<script type="text/javascript" src="{{ url_for('.static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/popper.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/holder.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/fontawesome.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/fabricadofuturo.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/goworking.js') }}"></script>
+<!-- javascript extra -->
+{% block javascript %}
+{% endblock %}
+<!-- /javascript extra -->
+</footer>
+</body>
+</html>
+

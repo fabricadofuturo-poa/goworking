@@ -1,0 +1,123 @@
+{% extends "default_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block main %}
+<div class="container-fluid">
+  <center>
+  <div class="row">
+    <div class="col-12">
+      <h2>{{ subtitle }}</h2>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12">
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.nome.label }}
+            {{ form.nome(size=30, placeholder=form.nome.description) }}
+            {% for error in form.nome.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.cpf.label }}
+            {{ form.cpf(size=30, placeholder=form.cpf.description) }}
+            {% for error in form.cpf.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.desc.label }}
+            {{ form.desc(placeholder=form.desc.description) }}
+            {% for error in form.desc.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.id_empresa.label }}
+            {{ form.id_empresa }}
+            {% for error in form.id_empresa.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.id_cadeira.label }}
+            {{ form.id_cadeira }}
+            {% for error in form.id_cadeira.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.submit() }}
+            <a role="button" class="btn btn-danger" href="{{ url_for('goworking.habitante') }}" target="_self">Cancelar</a>
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+      </form>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  </center>
+  <div class="row">
+    <div class="col-12">
+      <h1>{{ title }}</h1>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-12 table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="table-borderless thead-light">
+          <tr>
+            <th>Ações</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Descri&ccedil;&atilde;o</th>
+            <th>Empresa</th>
+            <th>Cadeira</th>
+            <th>Mesa</th>
+            <th>Data de Entrada</th>
+            <th>Data de Renova&ccedil;&atilde;o</th>
+            <th>Data de Sa&iacute;da</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for habitante in habitantes %}
+          <tr>
+            <td>
+              <div class="btn-group btn-group-sm" role="group">
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.habitante_editar', habitante_id=habitante.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.habitante_apagar', habitante_id=habitante.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+              </div>
+            </td>
+            <td>{{ habitante.nome }}</td>
+            <td>{{ habitante.cpf }}</td>
+            <td>{{ habitante.desc }}</td>
+            <td><a href="{{ url_for('goworking.empresa', empresa=habitante.id_empresa) }}" target="_self">{{ habitante.id_empresa }}</a></td>
+            <td><a href="{{ url_for('goworking.cadeira', mesa=habitante.id_cadeira) }}" target="_self">{{ habitante.id_cadeira }}</a></td>
+            <td>&nbsp;</td>
+            <td>{{ habitante.data_entrada|data }}</td>
+            <td>{{ habitante.data_renovacao|data }}</td>
+            <td>{{ habitante.data_saida|data }}</td>
+          </tr>
+          {% endfor %} <!-- habitante in habitantes -->
+        </tbody>
+      </table>
+    </div> <!-- col-12 -->
+  </div> <!-- row -->
+</div> <!-- container -->
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+

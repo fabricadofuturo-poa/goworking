@@ -1,0 +1,82 @@
+{% extends "default_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block main %}
+<div class="container">
+<h1>{{ title }}</h1>
+<h2>Adicionar / editar cadeira</h2>
+<form action="" method="post">
+  {{ form.hidden_tag() }}
+  {{ form.csrf_token }}
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.numero(size=15, placeholder=form.numero.description) }}
+      <label>{{ form.numero.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.numero.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.ordem(size=15, placeholder=form.ordem.description) }}
+      <label>{{ form.ordem.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.ordem.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.id_mesa }}
+      <label>{{ form.id_mesa.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.id_mesa.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-12">
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </div>
+</form>
+</div>
+<hr>
+<div class="lista-pedidos">
+<table class="table table-striped">
+<thead>
+<tr>
+  <th scope="col">id</th>
+  <th scope="col">numero</th>
+  <th scope="col">ordem</th>
+  <th scope="col">id_mesa</th>
+</tr>
+</thead>
+<tbody>
+{% for cadeira in cadeiras %}
+<tr>
+<th class="row">
+{{ cadeira.id }}
+</th>
+
+<td>{{ cadeira.numero }}</td>
+<td>{{ cadeira.ordem }}</td>
+<td><a href="{{ url_for('goworking.mesa', mesa=cadeira.id_mesa) }}" target="_self">{{ cadeira.id_mesa }}</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+

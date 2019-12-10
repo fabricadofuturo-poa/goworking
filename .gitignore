@@ -1,0 +1,21 @@
+## Linux
+.*
+!.gitignore
+*~
+*.swp
+
+## Pipenv - ler https://github.com/pypa/pipenv/issues/598
+Pipfile.lock
+
+## Python
+*.py[cod]
+**__pycache__
+
+## Flask
+instance/
+
+## Virtualenv
+env/
+venv/
+virtualenv/
+

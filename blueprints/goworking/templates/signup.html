@@ -1,0 +1,101 @@
+{% extends "default_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+<!--<link rel="stylesheet" href="{{ url_for('.static', filename='css/login.css') }}" />-->
+{% endblock %}
+{% block main %}
+<div class="container">
+<h1>{{ title }}</h1>
+<form action="" method="post">
+  {{ form.hidden_tag() }}
+  {{ form.csrf_token }}
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.username(size=15, placeholder=form.username.description) }}
+      <label>{{ form.username.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.username.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.password(size=15, placeholder=form.password.description) }}
+      <label>{{ form.password.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.password.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.confirm(size=15, placeholder=form.confirm.description) }}
+      <label>{{ form.confirm.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.confirm.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.nome(size=30, placeholder=form.nome.description) }}
+      <label>{{ form.nome.label }}</label>
+    </div>
+    <div class="col-6">
+      {% for error in form.nome.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+<!--  TODO A Marta disse que vai contra nova cartilha de etiqueta de comunicação-->
+<!--  <div class="form-row">-->
+<!--    <div class="col-3">-->
+<!--      <label>{{ form.pronome.label }}</label>-->
+<!--    </div>-->
+<!--    <div class="col-6">-->
+<!--      <div class="row">-->
+<!--      {# for subfield in form.pronome #}-->
+<!--        <div class="col form-check">-->
+<!--          {# subfield(class="form-check-input") }} {{ subfield.label(class="form-check-label") #}-->
+<!--        </div>-->
+<!--      {# endfor #}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-3">-->
+<!--      {# for error in form.pronome.errors #}-->
+<!--        <div class="alert alert-danger" role="alert">{{ error }}</div>-->
+<!--      {# endfor #}-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="form-row">
+    <div class="col-6">
+      {{ form.mr_robot() }} {{ form.mr_robot.label }}
+    </div>
+    <div class="col-6">
+      {% for error in form.mr_robot.errors %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-12">
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </div>
+</form>
+<hr>
+<div class="row">
+  <div class="col-3">J&aacute; se registrou&quest;</div>
+  <div class="col-3"><a class="btn btn-secondary" role="button" href="{{ url_for('goworking.login') }}">Fa&ccedil;a login agora&excl;</a></div>
+</div>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+

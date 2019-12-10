@@ -1,0 +1,28 @@
+{% extends "default_layout.html" %}
+{% block title %}Erro {{ erro.code }}{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{{ url_for('static', filename='uni/phaser.js') }}"></script>
+<link href="{{ url_for('static', filename='css/uni.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<center>
+<h1>Erro {{ erro.code }}</h1>
+<h2>{{ mensagem }}</h2>
+<p><button type="button" class="btn btn-primary btn-lg" onClick="window.history.back()"><span class="fas fa-angle-double-left"></span> Tentar voltar para a p&aacute;gina anterior&quest;</button>
+</p>
+<p>Enquanto isso, ajude a <video width="24px" height="100%" loop autoplay><source src="{{ url_for('static', filename='uni/assets/uni.mp4') }}" type="video/mp4"></video> a coletar VegCoins:</p>
+<div class="uni-canvas" id="uni-canvas"></div>
+<button class="reiniciar" type="submit" onClick="window.location.reload();">Reiniciar&excl;</button>
+<hr>
+<h3>Detalhes t&eacute;cnicos do erro:</h3>
+<div class="alert alert-info">
+<h4>{{erro.code }}</h4>
+<h5>{{ erro.name }}</h5>
+<h6>{{ erro.description }}</h6>
+</div>
+</center>
+{% block footer %}
+<script type="text/javascript" src="{{ url_for('static', filename='uni/uni.js') }}"></script>
+{% endblock %}
+{% endblock %}
+
