@@ -29,15 +29,6 @@
   </div>
   <div class="form-row">
     <div class="form-group col-12">
-      {{ form.confirm.label }}
-      {{ form.confirm(placeholder=form.confirm.description) }}
-      {% for error in form.confirm.errors %}
-        <div class="alert alert-danger" role="alert">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-12">
       {{ form.mr_robot() }} {{ form.mr_robot.label }}
       {% for error in form.mr_robot.errors %}
         <div class="alert alert-danger" role="alert">{{ error }}</div>

@@ -73,21 +73,6 @@ class LoginForm(FlaskForm):
       'oninput': 'this.setCustomValidity("");',
     }),
   )
-  confirm = PasswordField(
-    u"Senha de novo",
-    validators = [
-      DataRequired(message = u"É a mesma senha de novo!"),
-      Length(
-        min=3,
-        message = u"A senha tinha que ter pelo menos 3 (três) caracteres.",
-      ),
-    ],
-    description='********',
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Qual é a senha de novo?");',
-      'oninput': 'this.setCustomValidity("");',
-    }),
-  )
   mr_robot = BooleanField(
     u"Eu não sou um robô",
     validators=[DataRequired(message=(u"Não autenticamos robôs por este \
