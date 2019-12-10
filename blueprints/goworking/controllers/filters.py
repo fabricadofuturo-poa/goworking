@@ -12,3 +12,6 @@ def filtro_data(data):
 def filtro_tjemse(string):
   return re.sub(r"\s+", "", string.lower(), flags=re.UNICODE)
 
+def filtro_dezena(numero):
+  return "{:02d}".format(numero)
+

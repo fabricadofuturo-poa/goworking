@@ -2,7 +2,7 @@
 
 import datetime, json
 
-from app import db
+from blueprints.goworking.controllers import custom_uuid
 
 def dados_mesas():
   dados = {
@@ -320,4 +320,419 @@ def dados_mesas():
 #      ],
 #    },
 #  ]
+
+def goworking_esqueleto():
+  filas = list()
+  filas.append(
+    {
+      'ordem': 0,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Auditório",
+      'ordem': 0,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Auditório",
+      'ordem': 1,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Jardim",
+      'ordem': 2,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Jardim",
+      'ordem': 3,
+      'id_mesa': None,
+    }
+  )
+  filas.append(
+    {
+      'ordem': 1,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Auditório",
+      'ordem': 4,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Auditório",
+      'ordem': 5,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 01",
+      'ordem': 6,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 1,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 02",
+      'ordem': 7,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 2,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 2,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Auditório",
+      'ordem': 8,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Auditório",
+      'ordem': 9,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 03",
+      'ordem': 10,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 3,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 04",
+      'ordem': 11,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 4,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 3,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Corredor",
+      'ordem': 12,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Corredor",
+      'ordem': 13,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 05",
+      'ordem': 14,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 5,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 06",
+      'ordem': 15,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 6,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 4,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Banheiro Masculino",
+      'ordem': 16,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Chuveiro",
+      'ordem': 17,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 07",
+      'ordem': 18,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 7,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 08",
+      'ordem': 19,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 8,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 5,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Banheiro Feminino",
+      'ordem': 20,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Banheiro PCD",
+      'ordem': 21,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 09",
+      'ordem': 22,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 9,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 10",
+      'ordem': 23,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 10,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 6,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Banheiro Feminino",
+      'ordem': 24,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Parede Grafitada",
+      'ordem': 25,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 11",
+      'ordem': 26,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 11,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 12",
+      'ordem': 27,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 12,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 7,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 17",
+      'ordem': 28,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 17,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 18",
+      'ordem': 29,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 18,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 13",
+      'ordem': 30,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 13,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 14",
+      'ordem': 31,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 14,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 8,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 19",
+      'ordem': 32,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 19,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 20",
+      'ordem': 33,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 20,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 15",
+      'ordem': 34,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 15,
+      'cadeiras': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Mesa 16",
+      'ordem': 35,
+      'id_mesa': custom_uuid.default_uuid,
+      'numero': 16,
+      'cadeiras': list(),
+    }
+  )
+  filas.append(
+    {
+      'ordem': 9,
+      'colunas': list(),
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Sala de reuniões",
+      'ordem': 36,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Sala de reuniões",
+      'ordem': 37,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Televisão",
+      'ordem': 38,
+      'id_mesa': None,
+    }
+  )
+  filas[-1]['colunas'].append(
+    {
+      'desc': u"Recepção",
+      'ordem': 39,
+      'id_mesa': None,
+    }
+  )
+  for fila in filas:
+    for coluna in fila['colunas']:
+      if coluna['id_mesa']:
+        coluna['cadeiras'].append(
+          {
+            'ordem': 0,
+            'letra': 'A',
+            'id': custom_uuid.default_uuid,
+          }
+        )
+        coluna['cadeiras'].append(
+          {
+            'ordem': 1,
+            'letra': 'B',
+            'id': custom_uuid.default_uuid,
+          }
+        )
+        coluna['cadeiras'].append(
+          {
+            'ordem': 2,
+            'letra': 'C',
+            'id': custom_uuid.default_uuid,
+          }
+        )
+        coluna['cadeiras'].append(
+          {
+            'ordem': 3,
+            'letra': 'D',
+            'id': custom_uuid.default_uuid,
+          }
+        )
+  return filas
 

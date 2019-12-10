@@ -32,9 +32,11 @@ from blueprints.goworking.models import User
 from blueprints.goworking.controllers.filters import (
   filtro_data,
   filtro_tjemse,
+  filtro_dezena,
 )
 app.jinja_env.filters['data'] = filtro_data
 app.jinja_env.filters['nome'] = filtro_tjemse
+app.jinja_env.filters['dezena'] = filtro_dezena
 
 ## Blueprint
 from flask import Blueprint
