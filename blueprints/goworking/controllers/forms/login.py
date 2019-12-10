@@ -61,11 +61,6 @@ class LoginForm(FlaskForm):
     u"Senha",
     validators = [
       DataRequired(message = u"Qual é a senha?"),
-      Length(
-        min=3,
-        message = u"A senha precisa ter pelo menos 3 (três) caracteres.",
-      ),
-      EqualTo('confirm', message=u"As duas senhas na verdade são a mesma!",),
     ],
     description='********',
     render_kw=({
