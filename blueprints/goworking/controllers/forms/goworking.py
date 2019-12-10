@@ -48,6 +48,7 @@ from wtforms_validators import (
 from app import db
 
 from blueprints.goworking.models.goworking import (
+  espaco as espaco_model,
   mesa as mesa_model,
   cadeira as cadeira_model,
   empresa as empresa_model,
@@ -98,8 +99,14 @@ ordens_mesas = [
   (33, u"33"),
   (34, u"34"),
   (35, u"35"),
+  (36, u"36 (sala de reuniões)"),
+  (37, u"37 (sala de reuniões)"),
+  (38, u"38 (televisão)"),
+  (39, u"39 (recepção)"),
 ]
 
+def espacos():
+  return db.session.query(espaco_model).all()
 def mesas():
   return db.session.query(mesa_model).all()
 def cadeiras():
@@ -109,13 +116,47 @@ def empresas():
 def habitantes():
   return db.session.query(habitante_model).all()
 
+class NovaEspacoForm(FlaskForm):
+  numero = StringField(
+    u"Número",
+    validators = [
+      DataRequired(message = u"Exemplo: 01 para o espaço 01"),
+    ],
+    description='Exemplo: 01 para o espaço 01',
+    render_kw=({
+      'oninvalid': 'this.setCustomValidity("Exemplo: 01 para o espaço 01");',
+      'oninput': 'this.setCustomValidity("");',
+    }),
+  )
+  desc = TextAreaField(
+    u"Descrição",
+    description=u"Escreva o que quiser sobre o espaço aqui, depois a \
+      gente vai organizando em outros campos conforme a necessidade ;)",
+    validators = [Optional()],
+    render_kw=({
+      'rows': '6',
+      'cols': '45',
+    }),
+  )
+  ordem = SelectField(
+    u"Posição do espaço no goworking",
+    coerce=int,
+    choices=ordens_mesas,
+    render_kw=({'class': 'form-group'})
+  )
+  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
+
+class EditarEspacoForm(NovaEspacoForm):
+  id = StringField(widget=HiddenInput())
+  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
+
 class NovaMesaForm(FlaskForm):
   numero = StringField(
-    u"Número - Exemplo: 01 para a mesa 01",
+    u"Número",
     validators = [
       DataRequired(message = u"Exemplo: 01 para a mesa 01"),
     ],
-    description='01',
+    description='Exemplo: 01 para a mesa 01',
     render_kw=({
       'oninvalid': 'this.setCustomValidity("Exemplo: 01 para a mesa 01");',
       'oninput': 'this.setCustomValidity("");',
@@ -131,7 +172,27 @@ class NovaMesaForm(FlaskForm):
       'cols': '45',
     }),
   )
-  ordem = SelectField(u"Posição da mesa no go working", coerce=int, choices=ordens_mesas)
+  id_espaco = QuerySelectField(
+    u"Espaço",
+    query_factory=espacos,
+    allow_blank=False,
+    get_label='numero',
+    get_pk=lambda a: a.id,
+    blank_text=u"Selecione um Espaço...",
+    validators=[DataRequired(message = u"Selecione um Espaço. Não tem nenhum? \
+      Cadastre!")],
+    render_kw=({
+      'oninvalid': 'this.setCustomValidity("Selecione um Espaço. Não tem \
+        nenhum? Cadastre!");',
+      'oninput': 'this.setCustomValidity("");',
+    }),
+  )
+  ordem = SelectField(
+    u"Posição da mesa no goworking",
+    coerce=int,
+    choices=ordens_mesas,
+    render_kw=({'class': 'form-group'})
+  )
   submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
 
 class EditarMesaForm(NovaMesaForm):
@@ -152,7 +213,7 @@ class NovaCadeiraForm(FlaskForm):
     }),
   )
   ordem = RadioField(
-    u"Posição da cadeira",
+    u"Posição da cadeira no goworking",
     coerce=int,
     choices=ordens_cadeiras,
     render_kw=({'class': 'form-group'})

@@ -23,5 +23,11 @@
 
 ## Versão atual
 from blueprints.goworking.models.login import User
-from blueprints.goworking.models.goworking import mesa, cadeira, empresa, habitante
+from blueprints.goworking.models.goworking import (
+  espaco,
+  mesa,
+  cadeira,
+  empresa,
+  habitante,
+)
 

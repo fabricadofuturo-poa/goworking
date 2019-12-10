@@ -44,17 +44,8 @@
         </div> <!-- form-row -->
         <div class="form-row">
           <div class="form-group col-12">
-            {{ form.id_espaco.label }}
-            {{ form.id_espaco }}
-            {% for error in form.id_espaco.errors %}
-              <div class="alert alert-danger" role="alert">{{ error }}</div>
-            {% endfor %}
-          </div> <!-- form-group col-12 -->
-        </div> <!-- form-row -->
-        <div class="form-row">
-          <div class="form-group col-12">
             {{ form.submit() }}
-            <a role="button" class="btn btn-danger" href="{{ url_for('goworking.mesa') }}" target="_self">Cancelar</a>
+            <a role="button" class="btn btn-danger" href="{{ url_for('goworking.espaco') }}" target="_self">Cancelar</a>
           </div> <!-- form-group col-12 -->
         </div> <!-- form-row -->
       </form>
@@ -78,19 +69,19 @@
           </tr>
         </thead>
         <tbody>
-          {% for mesa in mesas %}
+          {% for espaco in espacos %}
           <tr>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a role="button" class="btn btn-info" href="{{ url_for('goworking.mesa_editar', mesa_id=mesa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
-                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.mesa_apagar', mesa_id=mesa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.espaco_editar', espaco_id=espaco.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.espaco_apagar', espaco_id=espaco.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
               </div>
             </td>
-            <td>{{ mesa.numero }}</td>
-            <td>{{ mesa.ordem }}</td>
-            <td>{{ mesa.desc }}</td>
+            <td>{{ espaco.numero }}</td>
+            <td>{{ espaco.ordem }}</td>
+            <td>{{ espaco.desc }}</td>
           </tr>
-          {% endfor %} <!-- mesa in mesas -->
+          {% endfor %} <!-- espaco in espacos -->
         </tbody>
       </table>
     </div> <!-- col-12 -->

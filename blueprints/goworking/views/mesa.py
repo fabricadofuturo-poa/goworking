@@ -68,6 +68,7 @@ def mesa(mesa_id=None):
       numero = form.numero.data,
       ordem = form.ordem.data,
       desc = form.desc.data,
+      id_espaco = form.id_espaco.data,
     )
     try:
       db.session.add(mesa_object)
@@ -111,11 +112,13 @@ def mesa_editar(mesa_id=None):
   form.numero.data = mesa_object.numero
   form.ordem.data = mesa_object.ordem
   form.desc.data = mesa_object.desc
+  form.id_espaco.data = mesa_object.id_espaco
   if form.validate_on_submit():
     try:
       mesa_object.numero = form.numero.data
       mesa_object.ordem = form.ordem.data
       mesa_object.desc = form.desc.data
+      mesa_object.id_espaco = form.id_espaco.data
       db.session.commit()
       flash(u"Deu certo! Dados de %s atualizados" % (str(mesa_object.numero)), 'success')
     except Exception as e:

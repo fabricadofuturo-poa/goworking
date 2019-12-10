@@ -24,7 +24,7 @@ from app import db
 
 from blueprints.goworking.controllers import custom_uuid
 
-class mesa_v1(db.Model):
+class espaco_v1(db.Model):
   id = db.Column(db.String(36), primary_key=True, unique=True, nullable=False, default=custom_uuid.random_uuid)
   timestamp = db.Column(db.TIMESTAMP, index=True, default=datetime.utcnow)
   numero = db.Column(db.String(2), default='00')
@@ -35,7 +35,25 @@ class mesa_v1(db.Model):
   def get_id(self):
     return self.id
   def __repr__(self):
-    return "<mesa_v1('id: %s', 'timestamp: %s', 'numero: %s', 'ordem: %s')>" % (self.id, str(self.timestamp), self.numero, self.ordem)
+    return "<espaco_v1('id: %s', 'timestamp: %s', 'numero: %s', 'ordem: %s')>" % (self.id, str(self.timestamp), self.numero, self.ordem)
+
+class espaco(espaco_v1):
+  pass
+
+class mesa_v1(db.Model):
+  id = db.Column(db.String(36), primary_key=True, unique=True, nullable=False, default=custom_uuid.random_uuid)
+  timestamp = db.Column(db.TIMESTAMP, index=True, default=datetime.utcnow)
+  numero = db.Column(db.String(2), default='00')
+  ordem = db.Column(db.Integer(), default=0)
+
+  id_espaco = db.Column(db.String(36), db.ForeignKey(espaco_v1.id))
+
+  desc = db.Column(db.Text(), nullable=True)
+
+  def get_id(self):
+    return self.id
+  def __repr__(self):
+    return "<mesa_v1('id: %s', 'timestamp: %s', 'numero: %s', 'ordem: %s', 'id_espaco: %s')>" % (self.id, str(self.timestamp), self.numero, self.ordem, self.id_espaco)
 
 class mesa(mesa_v1):
   pass

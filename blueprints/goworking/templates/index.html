@@ -32,7 +32,7 @@
       {% for espaco in fila['colunas'] %}
       <div class="col">
         {% if espaco.id_mesa %}
-        <table class="goworking table table-borderless table-responsive">
+        <table class="goworking-mesa-{{ espaco.numero }} table table-borderless table-responsive">
           <tbody>
             <tr>
 <!--              <th class="table-danger">{{ espaco.ordem|dezena }}</th>-->
@@ -73,7 +73,7 @@
           </tbody>
         </table>
         {% else %}
-        <table class="goworking table table-borderless table-responsive">
+        <table class="goworking-vazio table table-borderless table-responsive">
           <tbody>
             <tr>
 <!--              <th class="table-danger">{{ espaco.ordem|dezena }}</th>-->
