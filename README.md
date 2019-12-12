@@ -16,6 +16,14 @@ Data de entrega: Sexta Feira, 06 de dezembro de 2019
 * Ethiele deve conseguir visualizar quais cadeiras estão ocupadas, por quem, de que empresa;
 * Ethiele deve conseguir editar informações sobre cadeiras, pessoas, empresas;
 
+v 0.2
+---
+
+Data de entrega: Sexta Feira, 12 de dezembro de 2019
+
+* Todos cadastros funcionando (habitantes e empresas, além de espaços, mesas e cadeiras);
+* Atualizar dados não está funcionando corretamente. Para alterar informações é necessário recadastrar;
+
 Instruções
 ---
 
