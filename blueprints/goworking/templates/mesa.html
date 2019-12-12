@@ -75,6 +75,7 @@
             <th>N&uacute;mero</th>
             <th>Ordem</th>
             <th>Descri&ccedil;&atilde;o</th>
+            <th>Espa&ccedil;o</th>
           </tr>
         </thead>
         <tbody>
@@ -82,13 +83,14 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a role="button" class="btn btn-info" href="{{ url_for('goworking.mesa_editar', mesa_id=mesa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
-                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.mesa_apagar', mesa_id=mesa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.mesa_editar', mesa_id = mesa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.mesa_apagar', mesa_id = mesa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
               </div>
             </td>
             <td>{{ mesa.numero }}</td>
             <td>{{ mesa.ordem }}</td>
             <td>{{ mesa.desc }}</td>
+            <td><a href="{{ url_for('goworking.espaco', espaco = mesa.id_espaco) }}" target="_self">{{ mesa.espaco.numero }}</a></td>
           </tr>
           {% endfor %} <!-- mesa in mesas -->
         </tbody>
@@ -99,4 +101,3 @@
 {% endblock %}
 {% block javascript %}
 {% endblock %}
-

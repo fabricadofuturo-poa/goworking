@@ -1,0 +1,120 @@
+{% extends "default_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block css %}
+{% endblock %}
+{% block nav %}
+{% endblock %}
+{% block main %}
+<div class="row">
+  <div class="col-12">
+    <h2>{{ title }}{% if current_user.is_authenticated %} {{ current_user.nome }}{% endif %}</h2>
+  </div> <!-- col-12 -->
+</div> <!-- row -->
+<!--<div class="row">-->
+<!--  <div class="col-9">Legenda: </div>-->
+<!--</div> <!-- row -->
+<!--<div class="row">-->
+<!--  <div class="col badge-primary">Cadeira ocupada</div>-->
+<!--  <div class="col badge-success">Cadeira Vazia</div>-->
+<!--  <div class="col badge-warning">Mesa</div>-->
+<!--  <div class="col badge-secondary">Corredor (vazio)</div>-->
+<!--  <div class="col badge-dark">Corredor (intersecção)</div>-->
+<!--  <div class="col badge-danger">Posição de mesa</div>-->
+<!--  <div class="col active">Active</div>-->
+<!--  <div class="col info">Info</div>-->
+<!--  <div class="col light">Light</div>-->
+<!--</div> <!-- row -->
+<div class="container-fluid">
+<div class="row">
+  <div class="col-12">
+    {% for fila in espacos %}
+    <div class="row">
+      {% for espaco in fila['colunas'] %}
+      <div class="col">
+        {% if espaco.id_mesa %}
+        <table class="goworking-mesa-{{ espaco.numero }} table table-borderless table-responsive">
+          <tbody>
+            <tr>
+<!--              <th class="table-danger">{{ espaco.ordem|dezena }}</th>-->
+              <th></th>
+              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[0]['id']) }}">{{ espaco.cadeiras[0]['letra'] }}</a></td>
+              <th></th>
+              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[1]['id']) }}">{{ espaco.cadeiras[1]['letra'] }}</a></td>
+              <th></th>
+            </tr>
+            <tr>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+            </tr>
+            <tr>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">{{ espaco.desc }}</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+            </tr>
+            <tr>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+              <th class="table-warning">&nbsp;</th>
+            </tr>
+            <tr>
+              <th></th>
+              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[2]['id']) }}">{{ espaco.cadeiras[2]['letra'] }}</a></td>
+              <th></th>
+              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[3]['id']) }}">{{ espaco.cadeiras[3]['letra'] }}</a></td>
+              <th></th>
+            </tr>
+          </tbody>
+        </table>
+        {% else %}
+        <table class="goworking-vazio table table-borderless table-responsive">
+          <tbody>
+            <tr>
+<!--              <th class="table-danger">{{ espaco.ordem|dezena }}</th>-->
+              <th></th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+            <tr>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+            <tr>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>{{ espaco.desc }}</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+            <tr>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+          </tbody>
+        </table>
+        {% endif %}
+      </div> <!-- col -->
+      {% endfor %} <!-- espaco in fila['coluna'] -->
+    </div> <!-- row -->
+    {% endfor %} <!-- fila in espacos['filas'] -->
+  </div> <!-- col-12 -->
+</div> <!-- row -->
+</div> <!-- container-fluid -->
+{% endblock %}
+{% block javascript %}
+{% endblock %}
+

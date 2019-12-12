@@ -46,7 +46,7 @@ from blueprints.goworking.models import mesa as mesa_model
 @login_required
 def mesa(mesa_id=None):
   mesa_object = mesa_model.query.filter_by(numero=u"00-A").first()
-  mesas_object = mesa_model.query.all()
+  mesas_object = mesa_model.query.order_by(mesa_object.numero).all()
   if mesa_id is not None:
     mesa_object = mesa_model.query.filter_by(id=mesa_id).first()
     if mesa_object:
@@ -74,7 +74,7 @@ def mesa(mesa_id=None):
       db.session.add(mesa_object)
       db.session.commit()
       flash(
-        u"Deu certo! Dados de %s cadastrados"
+        u"Deu certo! Mesa %s cadastrada"
         % (str(mesa_object.numero)),
         'success',
       )
@@ -104,7 +104,7 @@ def mesa(mesa_id=None):
 @login_required
 def mesa_editar(mesa_id=None):
   mesa_object = mesa_model.query.filter_by(id=mesa_id).first()
-  mesas_object = mesa_model.query.all()
+  mesas_object = mesa_model.query.order_by(mesa_object.numero).all()
   if mesa_id is None:
     return redirect(url_for('goworking.mesa'))
   form = EditarMesaForm()
@@ -120,7 +120,7 @@ def mesa_editar(mesa_id=None):
       mesa_object.desc = form.desc.data
       mesa_object.id_espaco = form.id_espaco.data
       db.session.commit()
-      flash(u"Deu certo! Dados de %s atualizados" % (str(mesa_object.numero)), 'success')
+      flash(u"Deu certo! Mesa %s atualizada" % (str(mesa_object.numero)), 'success')
     except Exception as e:
       flash(u"Deu errado! O problema foi: %s" % (str(e)), 'danger')
     return redirect(url_for('goworking.mesa'))
@@ -137,15 +137,13 @@ def mesa_editar(mesa_id=None):
 @login_required
 def mesa_apagar(mesa_id=None):
   mesa_object = mesa_model.query.filter_by(id=mesa_id).first()
-  mesas_object = mesa_model.query.all()
   if mesa_id is None:
     return redirect(url_for('goworking.mesa'))
   mesa_object = mesa_model.query.filter_by(id=mesa_id).first()
   try:
     db.session.delete(mesa_object)
     db.session.commit()
-    flash(u"Deu certo! Dados de %s apagados" % (str(mesa_object.numero)), 'success')
+    flash(u"Deu certo! Mesa %s apagada" % (str(mesa_object.numero)), 'success')
   except Exception as e:
     flash(u"Deu errado! O problema foi: %s" % (str(e)), 'danger')
   return redirect(url_for('goworking.mesa'))
-

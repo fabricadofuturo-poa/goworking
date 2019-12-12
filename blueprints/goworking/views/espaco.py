@@ -46,7 +46,7 @@ from blueprints.goworking.models import espaco as espaco_model
 @login_required
 def espaco(espaco_id=None):
   espaco_object = espaco_model.query.filter_by(numero=u"00").first()
-  espacos_object = espaco_model.query.all()
+  espacos_object = espaco_model.query.order_by(espaco_model.numero).all()
   if espaco_id is not None:
     espaco_object = espaco_model.query.filter_by(id=espaco_id).first()
     if espaco_object:
@@ -73,7 +73,7 @@ def espaco(espaco_id=None):
       db.session.add(espaco_object)
       db.session.commit()
       flash(
-        u"Deu certo! Dados de %s cadastrados"
+        u"Deu certo! Espaço %s cadastrado"
         % (str(espaco_object.numero)),
         'success',
       )
@@ -103,7 +103,7 @@ def espaco(espaco_id=None):
 @login_required
 def espaco_editar(espaco_id=None):
   espaco_object = espaco_model.query.filter_by(id=espaco_id).first()
-  espacos_object = espaco_model.query.all()
+  espacos_object = espaco_model.query.order_by(espaco_model.numero).all()
   if espaco_id is None:
     return redirect(url_for('goworking.espaco'))
   form = EditarEspacoForm()
@@ -117,14 +117,14 @@ def espaco_editar(espaco_id=None):
       espaco_object.ordem = form.ordem.data
       espaco_object.desc = form.desc.data
       db.session.commit()
-      flash(u"Deu certo! Dados de %s atualizados" % (str(espaco_object.numero)), 'success')
+      flash(u"Deu certo! Espaço %s atualizado" % (str(espaco_object.numero)), 'success')
     except Exception as e:
       flash(u"Deu errado! O problema foi: %s" % (str(e)), 'danger')
     return redirect(url_for('goworking.espaco'))
   return render_template(
     'espaco.html',
     title = u"Espaços",
-    subtitle = u"Editar %s" % (espaco_object.nome),
+    subtitle = u"Editar espaço %s" % (espaco_object.numero),
     espaco = espaco_object,
     espacos = espacos_object,
     form = form,
@@ -134,15 +134,13 @@ def espaco_editar(espaco_id=None):
 @login_required
 def espaco_apagar(espaco_id=None):
   espaco_object = espaco_model.query.filter_by(id=espaco_id).first()
-  espacos_object = espaco_model.query.all()
   if espaco_id is None:
     return redirect(url_for('goworking.espaco'))
   espaco_object = espaco_model.query.filter_by(id=espaco_id).first()
   try:
     db.session.delete(espaco_object)
     db.session.commit()
-    flash(u"Deu certo! Dados de %s apagados" % (str(espaco_object.numero)), 'success')
+    flash(u"Deu certo! Espaço %s apagado" % (str(espaco_object.numero)), 'success')
   except Exception as e:
     flash(u"Deu errado! O problema foi: %s" % (str(e)), 'danger')
   return redirect(url_for('goworking.espaco'))
-

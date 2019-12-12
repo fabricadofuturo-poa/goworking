@@ -56,10 +56,10 @@ from blueprints.goworking.models.goworking import (
 )
 
 ordens_cadeiras = [
-  (1, u"A"),
-  (2, u"B"),
-  (3, u"C"),
-  (4, u"D"),
+  (0, u"A"),
+  (1, u"B"),
+  (2, u"C"),
+  (3, u"D"),
 ]
 
 ordens_mesas = [
@@ -106,15 +106,15 @@ ordens_mesas = [
 ]
 
 def espacos():
-  return db.session.query(espaco_model).all()
+  return espaco_model.query.order_by(espaco_model.numero)
 def mesas():
-  return db.session.query(mesa_model).all()
+  return mesa_model.query.order_by(mesa_model.numero)
 def cadeiras():
-  return db.session.query(cadeira_model).all()
+  return cadeira_model.query.order_by(cadeira_model.numero)
 def empresas():
-  return db.session.query(empresa_model).all()
+  return empresa_model.query.order_by(empresa_model.nome)
 def habitantes():
-  return db.session.query(habitante_model).all()
+  return habitante_model.query.order_by(habitante_model.nome)
 
 class NovaEspacoForm(FlaskForm):
   numero = StringField(
@@ -177,7 +177,6 @@ class NovaMesaForm(FlaskForm):
     query_factory=espacos,
     allow_blank=False,
     get_label='numero',
-    get_pk=lambda a: a.id,
     blank_text=u"Selecione um Espaço...",
     validators=[DataRequired(message = u"Selecione um Espaço. Não tem nenhum? \
       Cadastre!")],
@@ -233,7 +232,6 @@ class NovaCadeiraForm(FlaskForm):
     query_factory=mesas,
     allow_blank=False,
     get_label='numero',
-    get_pk=lambda a: a.id,
     blank_text=u"Selecione uma Mesa...",
     validators=[DataRequired(message = u"Selecione uma Mesa. Não tem nenhuma? \
       Cadastre!")],
@@ -320,24 +318,67 @@ class NovaHabitanteForm(FlaskForm):
   id_empresa = QuerySelectField(
     u"Empresa",
     query_factory=empresas,
-    allow_blank=True,
     get_label='nome',
-    get_pk=lambda a: a.id,
+    allow_blank=True,
     blank_text=u"Selecione uma Empresa...",
     validators = [Optional()],
   )
   id_cadeira = QuerySelectField(
     u"Cadeira",
     query_factory=cadeiras,
-    allow_blank=True,
     get_label='numero',
-    get_pk=lambda a: a.id,
+    allow_blank=True,
     blank_text=u"Selecione uma Cadeira...",
     validators = [Optional()],
   )
   submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
 
-class EditarHabitanteForm(NovaHabitanteForm):
+class EditarHabitanteForm(FlaskForm):
   id = StringField(widget=HiddenInput())
+  nome = StringField(
+    u"Nome",
+    validators = [
+      DataRequired(message = u"Faltou o Nome da Habitante"),
+    ],
+    description=u"Jocimara dos Santos",
+    render_kw=({
+      'oninvalid': 'this.setCustomValidity("Faltou o Nome da Habitante");',
+      'oninput': 'this.setCustomValidity("");',
+    }),
+  )
+  cpf = StringField(
+    u"CPF",
+    validators = [
+      Optional(),
+      Length(11, message = u"CPF tem 11 dígitos!"),
+      Integer(message = u"Somente números."),
+    ],
+    description=u"12345678901",
+  )
+  desc = TextAreaField(
+    u"Descrição",
+    description=u"Escreva o que quiser sobre a(o) habitante aqui, depois a \
+      gente vai organizando em outros campos conforme a necessidade ;)",
+    validators = [Optional()],
+    render_kw=({
+      'rows': '6',
+      'cols': '45',
+    }),
+  )
+  id_empresa = QuerySelectField(
+    u"Empresa",
+    query_factory=empresas,
+    get_label='nome',
+    allow_blank=True,
+    blank_text=u"Selecione uma Empresa...",
+    validators = [Optional()],
+  )
+  id_cadeira = QuerySelectField(
+    u"Cadeira",
+    query_factory=cadeiras,
+    get_label='numero',
+    allow_blank=True,
+    blank_text=u"Selecione uma Cadeira...",
+    validators = [Optional()],
+  )
   submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
-

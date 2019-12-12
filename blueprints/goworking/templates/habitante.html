@@ -97,15 +97,15 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a role="button" class="btn btn-info" href="{{ url_for('goworking.habitante_editar', habitante_id=habitante.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
-                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.habitante_apagar', habitante_id=habitante.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.habitante_editar', habitante_id = habitante.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.habitante_apagar', habitante_id = habitante.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
               </div>
             </td>
             <td>{{ habitante.nome }}</td>
             <td>{{ habitante.cpf }}</td>
             <td>{{ habitante.desc }}</td>
-            <td><a href="{{ url_for('goworking.empresa', empresa=habitante.id_empresa) }}" target="_self">{{ habitante.id_empresa }}</a></td>
-            <td><a href="{{ url_for('goworking.cadeira', mesa=habitante.id_cadeira) }}" target="_self">{{ habitante.id_cadeira }}</a></td>
+            <td><a href="{{ url_for('goworking.empresa', empresa = habitante.id_empresa) }}" target="_self">{{ habitante.empresa.nome }}</a></td>
+            <td><a href="{{ url_for('goworking.cadeira', mesa = habitante.id_cadeira) }}" target="_self">{{ habitante.cadeira.numero }}</a></td>
             <td>&nbsp;</td>
             <td>{{ habitante.data_entrada|data }}</td>
             <td>{{ habitante.data_renovacao|data }}</td>
@@ -120,4 +120,3 @@
 {% endblock %}
 {% block javascript %}
 {% endblock %}
-

@@ -46,7 +46,7 @@ from blueprints.goworking.models import cadeira as cadeira_model
 @login_required
 def cadeira(cadeira_id=None):
   cadeira_object = cadeira_model.query.filter_by(numero=u"00-A").first()
-  cadeiras_object = cadeira_model.query.all()
+  cadeiras_object = cadeira_model.query.order_by(cadeira_model.numero).all()
   if cadeira_id is not None:
     cadeira_object = cadeira_model.query.filter_by(id=cadeira_id).first()
     if cadeira_object:
@@ -74,7 +74,7 @@ def cadeira(cadeira_id=None):
       db.session.add(cadeira_object)
       db.session.commit()
       flash(
-        u"Deu certo! Dados de %s cadastrados"
+        u"Deu certo! Cadeira %s cadastrada"
         % (str(cadeira_object.numero)),
         'success',
       )
@@ -104,7 +104,7 @@ def cadeira(cadeira_id=None):
 @login_required
 def cadeira_editar(cadeira_id=None):
   cadeira_object = cadeira_model.query.filter_by(id=cadeira_id).first()
-  cadeiras_object = cadeira_model.query.all()
+  cadeiras_object = cadeira_model.query.order_by(cadeira_model.numero).all()
   if cadeira_id is None:
     return redirect(url_for('goworking.cadeira'))
   form = EditarCadeiraForm()
@@ -127,7 +127,7 @@ def cadeira_editar(cadeira_id=None):
   return render_template(
     'cadeira.html',
     title = u"Cadeiras",
-    subtitle = u"Editar %s" % (cadeira_object.nome),
+    subtitle = u"Editar cadeira %s" % (cadeira_object.numero),
     cadeira = cadeira_object,
     cadeiras = cadeiras_object,
     form = form,
@@ -137,15 +137,13 @@ def cadeira_editar(cadeira_id=None):
 @login_required
 def cadeira_apagar(cadeira_id=None):
   cadeira_object = cadeira_model.query.filter_by(id=cadeira_id).first()
-  cadeiras_object = cadeira_model.query.all()
   if cadeira_id is None:
     return redirect(url_for('goworking.cadeira'))
   cadeira_object = cadeira_model.query.filter_by(id=cadeira_id).first()
   try:
     db.session.delete(cadeira_object)
     db.session.commit()
-    flash(u"Deu certo! Dados de %s apagados" % (str(cadeira_object.numero)), 'success')
+    flash(u"Deu certo! Cadeira %s apagada" % (str(cadeira_object.numero)), 'success')
   except Exception as e:
     flash(u"Deu errado! O problema foi: %s" % (str(e)), 'danger')
   return redirect(url_for('goworking.cadeira'))
-

@@ -82,6 +82,7 @@
             <th>N&uacute;mero</th>
             <th>Ordem</th>
             <th>Descri&ccedil;&atilde;o</th>
+            <th>Mesa</th>
           </tr>
         </thead>
         <tbody>
@@ -89,14 +90,14 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a role="button" class="btn btn-info" href="{{ url_for('goworking.cadeira_editar', cadeira_id=cadeira.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
-                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.cadeira_apagar', cadeira_id=cadeira.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.cadeira_editar', cadeira_id = cadeira.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.cadeira_apagar', cadeira_id = cadeira.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
               </div>
             </td>
             <td>{{ cadeira.numero }}</td>
             <td>{{ cadeira.ordem }}</td>
             <td>{{ cadeira.desc }}</td>
-            <td><a href="{{ url_for('goworking.mesa', mesa=cadeira.id_mesa) }}" target="_self">{{ cadeira.id_mesa }}</a></td>
+            <td><a href="{{ url_for('goworking.mesa', mesa = cadeira.id_mesa) }}" target="_self">{{ cadeira.mesa.numero }}</a></td>
           </tr>
           {% endfor %} <!-- cadeira in cadeiras -->
         </tbody>
@@ -107,4 +108,3 @@
 {% endblock %}
 {% block javascript %}
 {% endblock %}
-

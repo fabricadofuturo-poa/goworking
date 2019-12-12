@@ -5,112 +5,178 @@
 {% block nav %}
 {% endblock %}
 {% block main %}
-<div class="row">
-  <div class="col-12">
-    <h2>{{ title }}{% if current_user.is_authenticated %} {{ current_user.nome }}{% endif %}</h2>
-  </div> <!-- col-12 -->
-</div> <!-- row -->
-<!--<div class="row">-->
-<!--  <div class="col-9">Legenda: </div>-->
-<!--</div> <!-- row -->
-<!--<div class="row">-->
-<!--  <div class="col badge-primary">Cadeira ocupada</div>-->
-<!--  <div class="col badge-success">Cadeira Vazia</div>-->
-<!--  <div class="col badge-warning">Mesa</div>-->
-<!--  <div class="col badge-secondary">Corredor (vazio)</div>-->
-<!--  <div class="col badge-dark">Corredor (intersecção)</div>-->
-<!--  <div class="col badge-danger">Posição de mesa</div>-->
-<!--  <div class="col active">Active</div>-->
-<!--  <div class="col info">Info</div>-->
-<!--  <div class="col light">Light</div>-->
-<!--</div> <!-- row -->
 <div class="container-fluid">
 <div class="row">
+  <div class="col-2"><img id="logotipo" src="{{
+    url_for('.static', filename = 'img/FdoF_logo_preto.png')
+  }}" /></div>
+</div> <!-- row -->
+<div class="row">
+  <div class="col-2">&nbsp;</div>
+  <div class="col-2 table-primary">Cadeira ocupada</div>
+  <div class="col-2 table-success">Cadeira Vazia</div>
+  <div class="col-2 table-warning">Mesa</div>
+<!--
+  <div class="col badge-secondary">Corredor (vazio)</div>
+-->
+<!--
+  <div class="col badge-dark">Corredor (intersecção)</div>
+-->
+<!--
+  <div class="col badge-danger">Posição de mesa</div>
+-->
+<!--
+  <div class="col active">Active</div>
+-->
+<!--
+  <div class="col info">Info</div>
+-->
+<!--
+  <div class="col light">Light</div>
+-->
+</div> <!-- row -->
+<div class="row">
   <div class="col-12">
-    {% for fila in espacos %}
-    <div class="row">
-      {% for espaco in fila['colunas'] %}
-      <div class="col">
-        {% if espaco.id_mesa %}
-        <table class="goworking-mesa-{{ espaco.numero }} table table-borderless table-responsive">
-          <tbody>
-            <tr>
-<!--              <th class="table-danger">{{ espaco.ordem|dezena }}</th>-->
-              <th></th>
-              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[0]['id']) }}">{{ espaco.cadeiras[0]['letra'] }}</a></td>
-              <th></th>
-              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[1]['id']) }}">{{ espaco.cadeiras[1]['letra'] }}</a></td>
-              <th></th>
-            </tr>
-            <tr>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-            </tr>
-            <tr>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">{{ espaco.desc }}</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-            </tr>
-            <tr>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-              <th class="table-warning">&nbsp;</th>
-            </tr>
-            <tr>
-              <th></th>
-              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[2]['id']) }}">{{ espaco.cadeiras[2]['letra'] }}</a></td>
-              <th></th>
-              <td class="table-success"><a target="_self" href="{{ url_for('goworking.cadeira', cadeira = espaco.cadeiras[3]['id']) }}">{{ espaco.cadeiras[3]['letra'] }}</a></td>
-              <th></th>
-            </tr>
-          </tbody>
-        </table>
+    {% set contador = namespace(valor = 0) %}
+    <!--
+      Goworking atualmente é um grid de 10 linhas por 4 colunas, onde 
+      seis filas têm duas mesas e duas filas têm quatro mesas. A
+      primeira fila é o jardim de inverno e a última fila é a recepção.
+    -->
+    {% for row in range(10) %} <!-- for row in range(10) -->
+      <div class="row">
+      {% for col in range(4) %} <!-- for col in range(4) -->
+        <div class="col goworking-espaco-{{
+          espacos[contador.valor].numero }}">
+        <!-- Se não existir o campo 'mesa' no objeto do espaço, então
+        é um espaço sem mesa. -->
+        {% if espacos[contador.valor].mesa %}
+          <table class="goworking-mesa-{{
+            espacos[contador.valor]['mesa']['numero']
+          }} table table-borderless table-responsive">
+            <tbody>
+              <tr>
+                <td><!-- {{ espacos[contador.valor].numero }} --></td>
+                <td class="table-{% if espacos[contador.valor].mesa.cadeiras[0].habitante %}primary{% else %}success{% endif %}"><button
+                  class="btn table-{% if espacos[contador.valor].mesa.cadeiras[0].habitante %}primary{% else %}success{% endif %}"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#modal-cadeira-{{
+                    espacos[contador.valor].mesa.cadeiras[0].id
+                  }}"
+                >{{
+                  espacos[contador.valor].mesa.cadeiras[0].numero
+                }}</button></td>
+                <td></td>
+                <td class="table-{% if espacos[contador.valor].mesa.cadeiras[1].habitante %}primary{% else %}success{% endif %}"><button
+                  class="btn table-{% if espacos[contador.valor].mesa.cadeiras[1].habitante %}primary{% else %}success{% endif %}"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#modal-cadeira-{{
+                    espacos[contador.valor].mesa.cadeiras[1].id
+                  }}"
+                >{{
+                  espacos[contador.valor].mesa.cadeiras[1].numero
+                }}</button></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa"><button
+                  type="button"
+                  class="btn table-warning"
+                  data-toggle="modal"
+                  data-target="#modal-mesa-{{
+                    espacos[contador.valor].mesa.id }}"
+                  data-dismiss="modal"
+                >Mesa {{
+                  espacos[contador.valor].mesa.numero }}</button></td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+                <td class="mesa">&nbsp;</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="table-{% if espacos[contador.valor].mesa.cadeiras[2].habitante %}primary{% else %}success{% endif %}"><button
+                  class="btn table-{% if espacos[contador.valor].mesa.cadeiras[2].habitante %}primary{% else %}success{% endif %}"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#modal-cadeira-{{
+                    espacos[contador.valor].mesa.cadeiras[2].id
+                  }}"
+                >{{
+                  espacos[contador.valor].mesa.cadeiras[2].numero
+                }}</button></td>
+                <td></td>
+                <td class="table-{% if espacos[contador.valor].mesa.cadeiras[3].habitante %}primary{% else %}success{% endif %}"><button
+                  class="btn table-{% if espacos[contador.valor].mesa.cadeiras[3].habitante %}primary{% else %}success{% endif %}"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#modal-cadeira-{{
+                    espacos[contador.valor].mesa.cadeiras[3].id
+                  }}"
+                >{{
+                  espacos[contador.valor].mesa.cadeiras[3].numero
+                }}</button></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         {% else %}
-        <table class="goworking-vazio table table-borderless table-responsive">
-          <tbody>
-            <tr>
-<!--              <th class="table-danger">{{ espaco.ordem|dezena }}</th>-->
-              <th></th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-            </tr>
-            <tr>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-            </tr>
-            <tr>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>{{ espaco.desc }}</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-            </tr>
-            <tr>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-              <th>&nbsp;</th>
-            </tr>
-          </tbody>
-        </table>
+          <table class="
+            goworking-vazio table table-borderless table-responsive">
+            <tbody>
+              <tr>
+                <td><!-- {{ espacos[contador.valor].numero }} --></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{ espacos[contador.valor].desc }}</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </tbody>
+          </table>
         {% endif %}
-      </div> <!-- col -->
-      {% endfor %} <!-- espaco in fila['coluna'] -->
-    </div> <!-- row -->
-    {% endfor %} <!-- fila in espacos['filas'] -->
+        </div> <!-- col goworking-espaco-{{
+          espacos[contador.valor].numero }} -->
+        {% set contador.valor = contador.valor + 1 %}
+      {% endfor %} <!-- endfor col in range(4) -->
+      </div> <!-- row -->
+    {% endfor %} <!-- endfor row in range(10) -->
   </div> <!-- col-12 -->
 </div> <!-- row -->
 </div> <!-- container-fluid -->
@@ -118,3 +184,292 @@
 {% block javascript %}
 {% endblock %}
 
+{% for habitante in habitantes %} <!-- for habitante in habitantes -->
+<div
+  class="modal fade"
+  id="modal-habitante-{{ habitante.id }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="habitante-{{ habitante.id }}"
+  aria-hidden="true"
+  style="background-color: #e8e8e8;"
+>
+  <div class="modal-dialog modal-lg modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="habitante-{{ habitante.id }}">{{
+            habitante.nome }}</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+        {% if habitante.empresa %}
+          <div class="row">
+            <div class="col-6 ml-auto">Empresa</div>
+            <div class="col-6 ml-auto"><button
+              class="btn btn-success"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-empresa-{{ habitante.empresa.id }}"
+              data-dismiss="modal"
+            >{{ habitante.empresa.nome }}</button></div>
+          </div> <!-- row -->
+        {% endif %}
+          <div class="row">
+            <div class="col-6 ml-auto">Cadeira</div>
+          {% if habitante.cadeira %}
+            <div class="col-6 ml-auto"><button
+              class="btn btn-success"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-cadeira-{{ habitante.cadeira.id }}"
+              data-dismiss="modal"
+            >{{ habitante.cadeira.numero }}</button></div>
+          {% else %}
+            <div class="col-6 ml-auto alert-danger">Nenhuma&excl; Habitante est&aacute; sem cadeira&excl;</div>
+          {% endif %}
+
+          </div> <!-- row -->
+        {% if habitante.desc %}
+          <div class="row">
+            <div class="col-6 ml-auto">Mais informa&ccedil;&otilde;es</div>
+            <div class="col-6 ml-auto">{{ habitante.desc }}</div>
+          </div> <!-- row -->
+        {% endif %}
+        </div> <!-- container-fluid -->
+      </div> <!-- modal-body -->
+      <div class="modal-footer justify-content-center">
+<!--
+        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+-->
+        <a
+          role="button"
+          class="btn btn-info"
+          target="_blank"
+          href="{{
+            url_for(
+              'goworking.habitante',
+              habitante = habitante.id,
+            )
+          }}"
+        >Editar informa&ccedil;&otilde;es</a>
+      </div> <!-- modal-footer justify-content-center -->
+    </div> <!-- modal-content -->
+  </div> <!-- modal-dialog modal-lg modal-xl -->
+</div> <!-- modal fade -->
+{% endfor %} <!-- endfor habitante in habitantes -->
+{% for empresa in empresas %} <!-- for empresa in empresas -->
+<div
+  class="modal fade"
+  id="modal-empresa-{{ empresa.id }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="empresa-{{ empresa.id }}"
+  aria-hidden="true"
+  style="background-color: #e8e8e8;"
+>
+  <div class="modal-dialog modal-lg modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="empresa-{{ empresa.id }}">{{
+            empresa.nome }}</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+        {% if empresa.habitantes %}
+          <div class="row">
+            <div class="col-6 ml-auto">Habitantes</div>
+          {% for habitante in empresa.habitantes %} <!-- for habitante in empresa.habitantes -->
+            <div class="col-1 ml-auto"><button
+              class="btn btn-success"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-habitante-{{ habitante.id }}"
+              data-dismiss="modal"
+            >{{ habitante.nome }}</button></div>
+          {% endfor %} <!-- endfor habitante in empresa.habitantes -->
+          </div> <!-- row -->
+        {% endif %} <!-- endif empresa.habitantes -->
+        {% if empresa.desc %}
+          <div class="row">
+            <div class="col-6 ml-auto">Mais informa&ccedil;&otilde;es</div>
+            <div class="col-6 ml-auto">{{ empresa.desc }}</div>
+          </div> <!-- row -->
+        {% endif %}
+        </div> <!-- container-fluid -->
+      </div> <!-- modal-body -->
+      <div class="modal-footer justify-content-center">
+<!--
+        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+-->
+        <a
+          role="button"
+          class="btn btn-info"
+          target="_blank"
+          href="{{
+            url_for(
+              'goworking.empresa',
+              empresa = empresa.id,
+            )
+          }}"
+        >Editar informa&ccedil;&otilde;es</a>
+      </div> <!-- modal-footer justify-content-center -->
+    </div> <!-- modal-content -->
+  </div> <!-- modal-dialog modal-lg modal-xl -->
+</div> <!-- modal fade -->
+{% endfor %} <!-- endfor empresa in empresas -->
+{% for cadeira in cadeiras %} <!-- for cadeira in cadeiras -->
+<div
+  class="modal fade"
+  id="modal-cadeira-{{ cadeira.id }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="cadeira-{{ cadeira.id }}"
+  aria-hidden="true"
+  style="background-color: #d21d21d21;"
+>
+  <div class="modal-dialog modal-lg modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="cadeira-{{ cadeira.id }}">Cadeira {{
+            cadeira.numero }}</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+        {% if cadeira.mesa %}
+          <div class="row">
+            <div class="col-6 ml-auto">Mesa</div>
+            <div class="col-6 ml-auto"><button
+              type="button"
+              class="btn btn-success"
+              data-toggle="modal"
+              data-target="#modal-mesa-{{ cadeira.mesa.id }}"
+              data-dismiss="modal"
+            >{{ cadeira.mesa.numero }}</button></div>
+          </div> <!-- row -->
+        {% endif %}
+          <div class="row">
+            <div class="col-6 ml-auto">Habitante</div>
+          {% if cadeira.habitante %}
+            <div class="col-6 ml-auto"><button
+              class="btn btn-success"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-habitante-{{ cadeira.habitante.id }}"
+              data-dismiss="modal"
+            >{{ cadeira.habitante.nome }}</button></div>
+          {% else %}
+            <div class="col-6 ml-auto alert-danger">Ningu&eacute;m&excl; Cadeiras vazias s&atilde;o chatas...</div>
+          {% endif %}
+          </div> <!-- row -->
+        {% if cadeira.desc %}
+          <div class="row">
+            <div class="col-6 ml-auto">Detalhes</div>
+            <div class="col-6 ml-auto">{{ cadeira.desc }}</div>
+          </div> <!-- row -->
+        {% endif %}
+        </div> <!-- container-fluid -->
+      </div> <!-- modal-body -->
+      <div class="modal-footer justify-content-center">
+<!--
+        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+-->
+        <a
+          role="button"
+          class="btn btn-info"
+          target="_blank"
+          href="{{
+            url_for(
+              'goworking.cadeira',
+              cadeira = cadeira.id,
+            )
+          }}"
+        >Editar informa&ccedil;&otilde;es</a>
+      </div> <!-- modal-footer justify-content-center -->
+    </div> <!-- modal-content -->
+  </div> <!-- modal-dialog modal-lg modal-xl -->
+</div> <!-- modal fade -->
+{% endfor %} <!-- endfor cadeira in cadeiras -->
+{% for mesa in mesas %} <!-- for mesa in mesas -->
+<div
+  class="modal fade"
+  id="modal-mesa-{{ mesa.id }}"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mesa-{{ mesa.id }}"
+  aria-hidden="true"
+  style="background-color: #a7a7a7;"
+>
+  <div class="modal-dialog modal-lg modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="mesa-{{ mesa.id }}">Mesa {{
+            mesa.numero }}</h5>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+        {% if mesa.cadeiras %}
+          <div class="row">
+            <div class="col-6 ml-auto">Cadeiras</div>
+          {% for cadeira in mesa.cadeiras %} <!-- for cadeira in mesa.cadeiras -->
+            <div class="col-1 ml-auto"><button
+              class="btn btn-success"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-cadeira-{{ cadeira.id }}"
+              data-dismiss="modal"
+            >{{ cadeira.numero }}</button></div>
+          {% endfor %} <!-- endfor cadeira in mesa.cadeiras -->
+          </div> <!-- row -->
+        {% endif %} <!-- endif mesa.cadeiras -->
+        {% if mesa.desc %}
+          <div class="row">
+            <div class="col-6 ml-auto">Detalhes</div>
+            <div class="col-6 ml-auto">{{ mesa.desc }}</div>
+          </div> <!-- row -->
+        {% endif %}
+        </div> <!-- container-fluid -->
+      </div> <!-- modal-body -->
+      <div class="modal-footer justify-content-center">
+<!--
+        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+-->
+        <a
+          role="button"
+          class="btn btn-info"
+          target="_blank"
+          href="{{
+            url_for(
+              'goworking.mesa',
+              mesa = mesa.id,
+            )
+          }}"
+        >Editar informa&ccedil;&otilde;es</a>
+      </div> <!-- modal-footer justify-content-center -->
+    </div> <!-- modal-content -->
+  </div> <!-- modal-dialog modal-lg modal-xl -->
+</div> <!-- modal fade -->
+{% endfor %} <!-- endfor mesa in mesas -->

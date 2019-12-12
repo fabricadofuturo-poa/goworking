@@ -19,3 +19,5 @@ env/
 venv/
 virtualenv/
 
+## Geany
+*.geany

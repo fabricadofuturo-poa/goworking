@@ -14,10 +14,9 @@ body {
   padding-top: 2em;
 }
 
-#logo {
-  height: 100%;
-  max-height: 64px;
-  width: 100%;
+#logotipo {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 footer a {
@@ -51,3 +50,9 @@ table.goworking tbody tr td:not(:first-child) {
 /*  border-spacing: 3em;*/
 /*}*/
 
+table tr td.mesa {
+  /* <a href="https://www.freepik.com/free-photos-vectors/background">Background photo created by rawpixel.com - www.freepik.com</a> */
+  background-size: cover;
+  background-repeat: repeat;
+  background-image: url("/goworking/static/img/75016.jpg");
+}

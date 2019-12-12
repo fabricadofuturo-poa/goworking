@@ -46,7 +46,7 @@ from blueprints.goworking.models import habitante as habitante_model
 @login_required
 def habitante(habitante_id=None):
   habitante_object = habitante_model.query.filter_by(nome=u"Ninguém").first()
-  habitantes_object = habitante_model.query.all()
+  habitantes_object = habitante_model.query.order_by(habitante_model.nome).all()
   if habitante_id is not None:
     habitante_object = habitante_model.query.filter_by(id=habitante_id).first()
     if habitante_object:
@@ -68,9 +68,15 @@ def habitante(habitante_id=None):
       nome=form.nome.data,
       cpf=form.cpf.data,
       desc=form.desc.data,
-      id_empresa=form.id_empresa.data,
-      id_cadeira=form.id_cadeira.data,
     )
+    try:
+      habitante_object.id_empresa = form.id_empresa.data.id
+    except Exception as e:
+      print(u"[DEBUG]: %s" % (e))
+    try:
+      habitante_object.id_cadeira = form.id_cadeira.data.id
+    except Exception as e:
+      print(u"[DEBUG]: %s" % (e))
     try:
       db.session.add(habitante_object)
       db.session.commit()
@@ -105,7 +111,7 @@ def habitante(habitante_id=None):
 @login_required
 def habitante_editar(habitante_id=None):
   habitante_object = habitante_model.query.filter_by(id=habitante_id).first()
-  habitantes_object = habitante_model.query.all()
+  habitantes_object = habitante_model.query.order_by(habitante_model.nome).all()
   if habitante_id is None:
     return redirect(url_for('goworking.habitante'))
   form = EditarHabitanteForm()
@@ -113,15 +119,37 @@ def habitante_editar(habitante_id=None):
   form.nome.data = habitante_object.nome
   form.cpf.data = habitante_object.cpf
   form.desc.data = habitante_object.desc
-  form.id_empresa.data = habitante_object.id_empresa
-  form.id_cadeira.data = habitante_object.id_cadeira
+  try:
+    form.id_empresa.data = habitante_object.empresa
+  except Exception as e:
+    print(u"[DEBUG]: %s" % (e))
+  try:
+    form.id_cadeira.data = habitante_object.cadeira
+  except Exception as e:
+    print(u"[DEBUG]: %s" % (e))
+  #~ form.populate_obj(habitante_object)
   if form.validate_on_submit():
+    print(habitante_object.id_empresa)
     try:
       habitante_object.nome = form.nome.data
       habitante_object.cpf = form.cpf.data
       habitante_object.desc = form.desc.data
-      habitante_object.id_empresa = form.id_empresa.data
-      habitante_object.id_cadeira = form.id_cadeira.data
+      print(habitante_object.id_empresa)
+      try:
+        habitante_object.id_empresa = form.id_empresa.data.id
+        print(habitante_object.id_empresa)
+      except Exception as e:
+        print(u"[DEBUG]: %s" % (e))
+      try:
+        habitante_object.id_cadeira = form.id_cadeira.data.id
+      except Exception as e:
+        print(u"[DEBUG]: %s" % (e))
+      try:
+        db.session.merge(habitante_object)
+      except Exception as e:
+        print(u"[DEBUG]: %s" % (e))
+        db.session.rollback()
+      print(habitante_object.id_empresa)
       db.session.commit()
       flash(u"Deu certo! Dados de %s atualizados" % (str(habitante_object.nome)), 'success')
     except Exception as e:
@@ -130,7 +158,7 @@ def habitante_editar(habitante_id=None):
   return render_template(
     'habitante.html',
     title = u"Habitantes",
-    subtitle = u"Editar %s" % (habitante_object.nome),
+    subtitle = u"Editar habitante %s" % (habitante_object.nome),
     habitante = habitante_object,
     habitantes = habitantes_object,
     form = form,
@@ -140,7 +168,6 @@ def habitante_editar(habitante_id=None):
 @login_required
 def habitante_apagar(habitante_id=None):
   habitante_object = habitante_model.query.filter_by(id=habitante_id).first()
-  habitantes_object = habitante_model.query.all()
   if habitante_id is None:
     return redirect(url_for('goworking.habitante'))
   habitante_object = habitante_model.query.filter_by(id=habitante_id).first()
@@ -151,4 +178,3 @@ def habitante_apagar(habitante_id=None):
   except Exception as e:
     flash(u"Deu errado! O problema foi: %s" % (str(e)), 'danger')
   return redirect(url_for('goworking.habitante'))
-

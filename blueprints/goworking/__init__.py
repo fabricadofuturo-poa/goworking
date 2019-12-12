@@ -46,7 +46,7 @@ bp = Blueprint('goworking', __name__, static_folder='static', template_folder='t
 def unauthorized():
   flash(
     u"Faça login para ver esta página.",
-    'warning',
+    'info',
   )
   return redirect(url_for('goworking.login'))
 
