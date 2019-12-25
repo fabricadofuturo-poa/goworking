@@ -85,8 +85,8 @@ class NovaHabitanteForm(FlaskForm):
     u"CPF",
     validators = [
       Optional(),
-      Length(11, message = u"CPF tem 11 dígitos!"),
-      Integer(message = u"Somente números."),
+      #~ Length(11, message = u"CPF tem 11 dígitos!"),
+      #~ Integer(message = u"Somente números."),
     ],
     description=u"12345678901",
   )

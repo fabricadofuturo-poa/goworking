@@ -263,8 +263,8 @@ class NovaEmpresaForm(FlaskForm):
     u"CNPJ",
     validators = [
       Optional(),
-      Length(14, message = u"CNPJ tem 14 dígitos!"),
-      Integer(message = u"Somente números."),
+      #~ Length(14, message = u"CNPJ tem 14 dígitos!"),
+      #~ Integer(message = u"Somente números."),
     ],
     description=u"12345678901234",
   )
