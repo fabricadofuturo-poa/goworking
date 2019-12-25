@@ -205,25 +205,23 @@
         {% if habitante.empresa %}
           <div class="row">
             <div class="col-6 ml-auto">Empresa</div>
-            <div class="col-6 ml-auto"><button
-              class="btn btn-success"
-              type="button"
+            <div class="col-6 ml-auto"><a
+              href="#"
               data-toggle="modal"
               data-target="#modal-empresa-{{ habitante.empresa.id }}"
               data-dismiss="modal"
-            >{{ habitante.empresa.nome }}</button></div>
+            >{{ habitante.empresa.nome }}</a></div>
           </div> <!-- row -->
         {% endif %}
           <div class="row">
             <div class="col-6 ml-auto">Cadeira</div>
           {% if habitante.cadeira %}
-            <div class="col-6 ml-auto"><button
-              class="btn btn-success"
-              type="button"
+            <div class="col-6 ml-auto"><a
+              href="#"
               data-toggle="modal"
               data-target="#modal-cadeira-{{ habitante.cadeira.id }}"
               data-dismiss="modal"
-            >{{ habitante.cadeira.numero }}</button></div>
+            >{{ habitante.cadeira.numero }}</a></div>
           {% else %}
             <div class="col-6 ml-auto alert-danger">Nenhuma&excl; Habitante est&aacute; sem cadeira&excl;</div>
           {% endif %}
@@ -262,7 +260,6 @@
         <a
           role="button"
           class="btn btn-info"
-          target="_blank"
           href="{{
             url_for(
               'goworking.habitante_editar',
@@ -303,13 +300,12 @@
             <div class="col-6 ml-auto">Habitantes</div>
           <!-- for habitante in empresa.habitantes -->
           {% for habitante in empresa.habitantes %}
-            <div class="col-1 ml-auto"><button
-              class="btn btn-success"
-              type="button"
+            <div class="col-1 ml-auto"><a
+              href="#"
               data-toggle="modal"
               data-target="#modal-habitante-{{ habitante.id }}"
               data-dismiss="modal"
-            >{{ habitante.nome }}</button></div>
+            >{{ habitante.nome }}</a></div>
           {% endfor %}
           <!-- endfor habitante in empresa.habitantes -->
           </div> <!-- row -->
@@ -336,7 +332,6 @@
         <a
           role="button"
           class="btn btn-info"
-          target="_blank"
           href="{{
             url_for(
               'goworking.empresa',
@@ -381,13 +376,12 @@
           <div class="row">
             <div class="col-6 ml-auto">Habitante</div>
           {% if cadeira.habitante %}
-            <div class="col-6 ml-auto"><button
-              class="btn btn-success"
-              type="button"
+            <div class="col-6 ml-auto"><a
+              href="#"
               data-toggle="modal"
               data-target="#modal-habitante-{{ cadeira.habitante.id }}"
               data-dismiss="modal"
-            >{{ cadeira.habitante.nome }}</button></div>
+            >{{ cadeira.habitante.nome }}</a></div>
           {% else %}
             <div class="col-6 ml-auto alert-danger">Ningu&eacute;m&excl; Cadeiras vazias s&atilde;o chatas...</div>
           {% endif %}
@@ -408,7 +402,6 @@
         <a
           role="button"
           class="btn btn-info"
-          target="_blank"
           href="{{
             url_for(
               'goworking.cadeira',
@@ -420,7 +413,6 @@
         <a
           role="button"
           class="btn btn-info"
-          target="_blank"
           href="{{
             url_for(
               'goworking.habitante_editar',
@@ -432,7 +424,6 @@
         <a
           role="button"
           class="btn btn-success"
-          target="_blank"
           href="{{
             url_for(
               'goworking.habitante_cadeira',
