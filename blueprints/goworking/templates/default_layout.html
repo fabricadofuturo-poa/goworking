@@ -11,7 +11,7 @@
 {% elif author %}
 <meta name="author" content="{{ author }}" />
 {% endif %}
-<title>Fábrica do Futuro - Goworking - {% block title %}{{ title }}{% endblock %}</title>
+<title>Fábrica do Futuro - GoWorking - {% block title %}{{ title }}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('.static', filename='css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('.static', filename='css/fabricadofuturo.css') }}">
 <link rel="stylesheet" href="{{ url_for('.static', filename='css/goworking.css') }}">
@@ -36,6 +36,7 @@
       <li class="nav-item">
         <a class="nav-link" target="_self" href="{{ url_for('goworking.habitante') }}">Habitantes</a>
       </li>
+<!--
       <li class="nav-item">
         <a class="nav-link disabled" target="_self" href="{{ url_for('goworking.espaco') }}">Espa&ccedil;os</a>
       </li>
@@ -45,15 +46,19 @@
       <li class="nav-item">
         <a class="nav-link disabled" target="_self" href="{{ url_for('goworking.cadeira') }}">Cadeiras</a>
       </li>
+-->
       {% block nav %}
       {% endblock %}
     </ul>
+    {% if not current_user.is_authenticated %}
     <span>&nbsp;</span>
     <a class="badge badge-pill badge-success" target="_self" href="{{ url_for('goworking.login') }}">Login</a>
     <span>&nbsp;</span>
     <a class="badge badge-pill badge-secondary" target="_self" href="{{ url_for('goworking.signup') }}">Registrar</a>
+    {% else %}
     <span>&nbsp;</span>
     <a class="badge badge-pill badge-danger" target="_self" href="{{ url_for('goworking.logout') }}">Logout</a>
+    {% endif %}
   </div>
 </nav>
 <!-- conteúdo -->

@@ -44,18 +44,58 @@
         </div> <!-- form-row -->
         <div class="form-row">
           <div class="form-group col-12">
-            {{ form.id_empresa.label }}
-            {{ form.id_empresa }}
-            {% for error in form.id_empresa.errors %}
+            {{ form.data_entrada.label }}
+            ({{ habitante.data_entrada|data }})
+            {{ form.data_entrada }}
+            {% for error in form.data_entrada.errors %}
               <div class="alert alert-danger" role="alert">{{ error }}</div>
             {% endfor %}
           </div> <!-- form-group col-12 -->
         </div> <!-- form-row -->
         <div class="form-row">
           <div class="form-group col-12">
-            {{ form.id_cadeira.label }}
-            {{ form.id_cadeira }}
-            {% for error in form.id_cadeira.errors %}
+            {{ form.data_saida.label }}
+            ({{ habitante.data_saida|data }})
+            {{ form.data_saida }}
+            {% for error in form.data_saida.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.data_renovacao.label }}
+            ({{ habitante.data_renovacao|data }})
+            {{ form.data_renovacao }}
+            {% for error in form.data_renovacao.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.empresa.label }}
+            {% if habitante.empresa %}
+              ({{ habitante.empresa.nome }})
+            {% else %}
+              (nenhuma)
+            {% endif %}
+            {{ form.empresa }}
+            {% for error in form.empresa.errors %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+          </div> <!-- form-group col-12 -->
+        </div> <!-- form-row -->
+        <div class="form-row">
+          <div class="form-group col-12">
+            {{ form.cadeira.label }}
+            {% if habitante.cadeira %}
+              ({{ habitante.cadeira.numero }})
+            {% else %}
+              (nenhuma)
+            {% endif %}
+            {{ form.cadeira }}
+            {% for error in form.cadeira.errors %}
               <div class="alert alert-danger" role="alert">{{ error }}</div>
             {% endfor %}
           </div> <!-- form-group col-12 -->
@@ -97,8 +137,8 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a role="button" class="btn btn-info" href="{{ url_for('goworking.habitante_editar', habitante_id = habitante.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
-                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.habitante_apagar', habitante_id = habitante.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.habitante_editar', id = habitante.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.habitante_apagar', id = habitante.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
               </div>
             </td>
             <td>{{ habitante.nome }}</td>

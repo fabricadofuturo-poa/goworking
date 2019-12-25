@@ -1,28 +1,63 @@
-{% extends "default_layout.html" %}
-{% block title %}Erro {{ erro.code }}{% endblock %}
-{% block head %}
-<script type="text/javascript" src="{{ url_for('static', filename='uni/phaser.js') }}"></script>
-<link href="{{ url_for('static', filename='css/uni.css') }}" rel="stylesheet">
-{% endblock %}
-{% block body %}
+<!DOCTYPE HTML>
+<html lang="pt_BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+{% if description %}<meta name="description" content="{{ description }}" />{% endif %}
+{% if authors %}
+{% for author in autors %}
+<meta name="author" content="{{ author }}" />
+{% endfor %}
+{% elif author %}
+<meta name="author" content="{{ author }}" />
+{% endif %}
+<title>Fábrica do Futuro - Goworking - {{ title }}</title>
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/cover.css') }}">
+<body class="text-center">
 <center>
-<h1>Erro {{ erro.code }}</h1>
-<h2>{{ mensagem }}</h2>
-<p><button type="button" class="btn btn-primary btn-lg" onClick="window.history.back()"><span class="fas fa-angle-double-left"></span> Tentar voltar para a p&aacute;gina anterior&quest;</button>
-</p>
-<p>Enquanto isso, ajude a <video width="24px" height="100%" loop autoplay><source src="{{ url_for('static', filename='uni/assets/uni.mp4') }}" type="video/mp4"></video> a coletar VegCoins:</p>
-<div class="uni-canvas" id="uni-canvas"></div>
-<button class="reiniciar" type="submit" onClick="window.location.reload();">Reiniciar&excl;</button>
-<hr>
-<h3>Detalhes t&eacute;cnicos do erro:</h3>
-<div class="alert alert-info">
-<h4>{{erro.code }}</h4>
-<h5>{{ erro.name }}</h5>
-<h6>{{ erro.description }}</h6>
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">{{ title }}</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" alt="Voltar" href="#" target="_self" onClick="window.history.back()"><i class="fas fa-backward"></i> Voltar</a>
+        <a class="nav-link" alt="Início" href="{{ url_for('goworking.index') }}" target="_self"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-link" alt="Logout" href="{{ url_for('goworking.logout') }}" target="_self"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </div>
+  </header>
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">{{ title }}</h1>
+    <p class="lead">{{ mensagem }}</p>
+    <div class="card bg-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-header">Detalhes t&eacute;cnicos</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ erro.code }} {{ erro.name }}</h5>
+        <p class="card-text">{{ erro.description }}</p>
+      </div>
+    </div>
+    <p class="lead">
+      <a href="#" class="btn btn-lg btn-secondary" onClick="window.history.back()"><i class="fas fa-angle-double-left"></i> Tentar voltar para a p&aacute;gina anterior&quest;</a>
+    </p>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p>P&aacute;gina de erro escrita com &hearts; por algu&eacute;m em algum momento. Praticamente clonada dos <a href="https://getbootstrap.com/docs/4.0/examples/cover/" target="_blank">exemplos do bootstrap</a>. C&oacute;digo fonte dispon&iacute;vel em algum lugar.</p>
+    </div>
+  </footer>
 </div>
 </center>
-{% block footer %}
-<script type="text/javascript" src="{{ url_for('static', filename='uni/uni.js') }}"></script>
-{% endblock %}
-{% endblock %}
-
+</body>
+<!--
+  OBS: quem não gosta de javascript não reclama, bloqueia!
+  https://addons.mozilla.org/pt-BR/firefox/addon/noscript/
+  https://addons.mozilla.org/pt-BR/firefox/addon/ghostery/
+  https://addons.mozilla.org/pt-BR/firefox/addon/ublock-origin/
+  https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
+ -->
+<script type="text/javascript" src="{{ url_for('.static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('.static', filename='js/fontawesome.js') }}"></script>
+</html>

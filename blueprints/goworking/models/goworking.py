@@ -40,11 +40,11 @@ class espaco_v1(db.Model):
     return self.id
   def __repr__(self):
     return """<espaco_v1(
-      'id: %s',
-      'timestamp: %s',
-      'numero: %s',
-      'ordem: %s',
-      'desc: %s',
+  'id: %s',
+  'timestamp: %s',
+  'numero: %s',
+  'ordem: %s',
+  'desc: %s',
     )>""" % (
       self.id,
       str(self.timestamp),
@@ -75,12 +75,12 @@ class mesa_v1(db.Model):
     return self.id
   def __repr__(self):
     return """<mesa_v1(
-      'id: %s',
-      'timestamp: %s',
-      'numero: %s',
-      'ordem: %s',
-      'desc: %s',
-      'id_espaco: %s',
+  'id: %s',
+  'timestamp: %s',
+  'numero: %s',
+  'ordem: %s',
+  'desc: %s',
+  'id_espaco: %s',
     )>""" % (
       self.id,
       str(self.timestamp),
@@ -112,12 +112,12 @@ class cadeira_v1(db.Model):
     return self.id
   def __repr__(self):
     return """<cadeira_v1(
-      'id: %s',
-      'timestamp: %s',
-      'numero: %s',
-      'ordem: %s',
-      'desc: %s',
-      'id_mesa: %s',
+  'id: %s',
+  'timestamp: %s',
+  'numero: %s',
+  'ordem: %s',
+  'desc: %s',
+  'id_mesa: %s',
     )>""" % (
       self.id,
       str(self.timestamp),
@@ -176,7 +176,7 @@ class habitante_v1(db.Model):
     nullable=True, default='00000000000')
   desc = db.Column(db.Text(), nullable=True)
   data_entrada = db.Column(db.DateTime, index=False, unique=False,
-    nullable=True, default=datetime.min)
+    nullable=True, default=datetime.utcnow)
   data_saida = db.Column(db.DateTime, index=False, unique=False,
     nullable=True, default=datetime.max)
   data_renovacao = db.Column(db.DateTime, index=False, unique=False,
@@ -192,16 +192,16 @@ class habitante_v1(db.Model):
     return self.id
   def __repr__(self):
     return """<habitante_v1(
-      'id: %s',
-      'timestamp: %s',
-      'nome: %s',
-      'cpf: %s',
-      'desc: %s',
-      'data_entrada: %s',
-      'data_saida: %s',
-      'data_renovacao: %s',
-      'id_cadeira: %s',
-      'id_empresa: %s',
+  'id: %s',
+  'timestamp: %s',
+  'nome: %s',
+  'cpf: %s',
+  'desc: %s',
+  'data_entrada: %s',
+  'data_saida: %s',
+  'data_renovacao: %s',
+  'id_cadeira: %s',
+  'id_empresa: %s',
     )>""" % (
       self.id,
       str(self.timestamp),

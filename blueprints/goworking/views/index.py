@@ -19,7 +19,12 @@
 
 from blueprints.goworking import bp
 
-from flask import render_template
+from flask import (
+  abort,
+  redirect,
+  render_template,
+  url_for,
+)
 
 from flask_login import login_required
 
@@ -31,6 +36,8 @@ from blueprints.goworking.models import (
   empresa as empresa_model,
 )
 
+from jinja2 import exceptions
+
 @bp.route('/')
 @login_required
 def index():
@@ -39,15 +46,19 @@ def index():
   cadeiras = cadeira_model.query.order_by(cadeira_model.ordem).all()
   habitantes = habitante_model.query.order_by(habitante_model.nome).all()
   empresas = empresa_model.query.order_by(empresa_model.nome).all()
-  return render_template(
-    'index.html',
-    espacos = espacos,
-    mesas = mesas,
-    cadeiras = cadeiras,
-    habitantes = habitantes,
-    empresas = empresas,
-    title = u"GoWorking",
-  )
+  try:
+    return render_template(
+      'index.html',
+      espacos = espacos,
+      mesas = mesas,
+      cadeiras = cadeiras,
+      habitantes = habitantes,
+      empresas = empresas,
+      title = u"Mapa",
+    )
+  except Exception as e:
+    abort(500, str(e))
+  abort(500)
 
 @bp.route('/admin')
 @login_required
@@ -58,10 +69,8 @@ def admin():
   from blueprints.goworking.controllers.db import populate
   populate.popular_espacos()
   populate.popular_mesas()
-  return render_template(
-    'admin.html',
-    espacos = goworking_esqueleto(),
-    mesas = mesas,
-    cadeiras = cadeiras,
-    title = u"Goworking de",
-  )
+  try:
+    return redirect(url_for('index'), code=303)
+  except Exception as e:
+    abort(500, str(e))
+  abort(500)

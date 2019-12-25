@@ -21,6 +21,7 @@ from blueprints.goworking.controllers.forms.login import (
   LoginForm,
   SignupForm,
 )
+
 from blueprints.goworking.controllers.forms.goworking import (
   NovaCadeiraForm,
   EditarCadeiraForm,
@@ -28,9 +29,12 @@ from blueprints.goworking.controllers.forms.goworking import (
   EditarEspacoForm,
   NovaMesaForm,
   EditarMesaForm,
-  NovaHabitanteForm,
-  EditarHabitanteForm,
   NovaEmpresaForm,
   EditarEmpresaForm,
 )
 
+from blueprints.goworking.controllers.forms.habitante import (
+  NovaHabitanteForm,
+  NovaHabitanteComCadeiraForm,
+  EditarHabitanteForm,
+)

@@ -54,6 +54,19 @@ def popular_espacos():
         print(u"Espaço já existe: %s" % (espaco_novo))
 
 def popular_mesas():
+  ## Cadeira "nenhuma"
+  id = custom_uuid.random_uuid()
+  while cadeira_model.query.filter_by(id=id).first():
+    id = custom_uuid.random_uuid()
+  cadeira_nova = cadeira_model(id = id, numero = 'NADA')
+  if not cadeira_model.query.filter_by(
+    numero = cadeira_nova.numero,
+  ).first():
+    print(u"Adicionando cadeira nova: %s" % 
+    (cadeira_nova))
+    db.session.add(cadeira_nova)
+  else:
+    print(u"Cadeira já existe: %s" % (cadeira_nova))
   filas = goworking_esqueleto()
   espacos = espaco_model.query.all()
   for fila in filas:

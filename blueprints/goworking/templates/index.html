@@ -90,15 +90,8 @@
               <tr>
                 <td class="mesa">&nbsp;</td>
                 <td class="mesa">&nbsp;</td>
-                <td class="mesa"><button
-                  type="button"
-                  class="btn table-warning"
-                  data-toggle="modal"
-                  data-target="#modal-mesa-{{
-                    espacos[contador.valor].mesa.id }}"
-                  data-dismiss="modal"
-                >Mesa {{
-                  espacos[contador.valor].mesa.numero }}</button></td>
+                <td class="mesa">Mesa {{
+                  espacos[contador.valor].mesa.numero }}</td>
                 <td class="mesa">&nbsp;</td>
                 <td class="mesa">&nbsp;</td>
               </tr>
@@ -232,14 +225,31 @@
           {% else %}
             <div class="col-6 ml-auto alert-danger">Nenhuma&excl; Habitante est&aacute; sem cadeira&excl;</div>
           {% endif %}
-
           </div> <!-- row -->
+        {% if habitante.cpf %}
+          <div class="row">
+            <div class="col-6 ml-auto">CPF</div>
+            <div class="col-6 ml-auto">{{ habitante.cpf }}</div>
+          </div> <!-- row -->
+        {% endif %}
         {% if habitante.desc %}
           <div class="row">
             <div class="col-6 ml-auto">Mais informa&ccedil;&otilde;es</div>
             <div class="col-6 ml-auto">{{ habitante.desc }}</div>
           </div> <!-- row -->
         {% endif %}
+        <div class="row">
+          <div class="col-6 ml-auto">Data de entrada</div>
+          <div class="col-6 ml-auto">{{ habitante.data_entrada|data }}</div>
+        </div> <!-- row -->
+        <div class="row">
+          <div class="col-6 ml-auto">Data de renova&ccedil;&atilde;o</div>
+          <div class="col-6 ml-auto">{{ habitante.data_renovacao|data }}</div>
+        </div> <!-- row -->
+        <div class="row">
+          <div class="col-6 ml-auto">Data de sa&iacute;da</div>
+          <div class="col-6 ml-auto">{{ habitante.data_saida|data }}</div>
+        </div> <!-- row -->
         </div> <!-- container-fluid -->
       </div> <!-- modal-body -->
       <div class="modal-footer justify-content-center">
@@ -253,8 +263,8 @@
           target="_blank"
           href="{{
             url_for(
-              'goworking.habitante',
-              habitante = habitante.id,
+              'goworking.habitante_editar',
+              id = habitante.id,
             )
           }}"
         >Editar informa&ccedil;&otilde;es</a>
@@ -289,7 +299,8 @@
         {% if empresa.habitantes %}
           <div class="row">
             <div class="col-6 ml-auto">Habitantes</div>
-          {% for habitante in empresa.habitantes %} <!-- for habitante in empresa.habitantes -->
+          <!-- for habitante in empresa.habitantes -->
+          {% for habitante in empresa.habitantes %}
             <div class="col-1 ml-auto"><button
               class="btn btn-success"
               type="button"
@@ -297,9 +308,16 @@
               data-target="#modal-habitante-{{ habitante.id }}"
               data-dismiss="modal"
             >{{ habitante.nome }}</button></div>
-          {% endfor %} <!-- endfor habitante in empresa.habitantes -->
+          {% endfor %}
+          <!-- endfor habitante in empresa.habitantes -->
           </div> <!-- row -->
         {% endif %} <!-- endif empresa.habitantes -->
+        {% if empresa.cnpj %}
+          <div class="row">
+            <div class="col-6 ml-auto">CNPJ</div>
+            <div class="col-6 ml-auto">{{ empresa.cnpj }}</div>
+          </div> <!-- row -->
+        {% endif %}
         {% if empresa.desc %}
           <div class="row">
             <div class="col-6 ml-auto">Mais informa&ccedil;&otilde;es</div>
@@ -355,13 +373,7 @@
         {% if cadeira.mesa %}
           <div class="row">
             <div class="col-6 ml-auto">Mesa</div>
-            <div class="col-6 ml-auto"><button
-              type="button"
-              class="btn btn-success"
-              data-toggle="modal"
-              data-target="#modal-mesa-{{ cadeira.mesa.id }}"
-              data-dismiss="modal"
-            >{{ cadeira.mesa.numero }}</button></div>
+            <div class="col-6 ml-auto">{{ cadeira.mesa.numero }}</div>
           </div> <!-- row -->
         {% endif %}
           <div class="row">
@@ -398,79 +410,38 @@
           href="{{
             url_for(
               'goworking.cadeira',
-              cadeira = cadeira.id,
+              cadeira_id = cadeira.id,
             )
           }}"
-        >Editar informa&ccedil;&otilde;es</a>
-      </div> <!-- modal-footer justify-content-center -->
-    </div> <!-- modal-content -->
-  </div> <!-- modal-dialog modal-lg modal-xl -->
-</div> <!-- modal fade -->
-{% endfor %} <!-- endfor cadeira in cadeiras -->
-{% for mesa in mesas %} <!-- for mesa in mesas -->
-<div
-  class="modal fade"
-  id="modal-mesa-{{ mesa.id }}"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="mesa-{{ mesa.id }}"
-  aria-hidden="true"
-  style="background-color: #a7a7a7;"
->
-  <div class="modal-dialog modal-lg modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"
-          id="mesa-{{ mesa.id }}">Mesa {{
-            mesa.numero }}</h5>
-        <button type="button" class="close" data-dismiss="modal"
-          aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-        {% if mesa.cadeiras %}
-          <div class="row">
-            <div class="col-6 ml-auto">Cadeiras</div>
-          {% for cadeira in mesa.cadeiras %} <!-- for cadeira in mesa.cadeiras -->
-            <div class="col-1 ml-auto"><button
-              class="btn btn-success"
-              type="button"
-              data-toggle="modal"
-              data-target="#modal-cadeira-{{ cadeira.id }}"
-              data-dismiss="modal"
-            >{{ cadeira.numero }}</button></div>
-          {% endfor %} <!-- endfor cadeira in mesa.cadeiras -->
-          </div> <!-- row -->
-        {% endif %} <!-- endif mesa.cadeiras -->
-        {% if mesa.desc %}
-          <div class="row">
-            <div class="col-6 ml-auto">Detalhes</div>
-            <div class="col-6 ml-auto">{{ mesa.desc }}</div>
-          </div> <!-- row -->
-        {% endif %}
-        </div> <!-- container-fluid -->
-      </div> <!-- modal-body -->
-      <div class="modal-footer justify-content-center">
-<!--
-        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
--->
+        >Editar informa&ccedil;&otilde;es da cadeira</a>
+        {% if cadeira.habitante %}
         <a
           role="button"
           class="btn btn-info"
           target="_blank"
           href="{{
             url_for(
-              'goworking.mesa',
-              mesa = mesa.id,
+              'goworking.habitante_editar',
+              id = cadeira.habitante.id,
             )
           }}"
-        >Editar informa&ccedil;&otilde;es</a>
+        >Editar informa&ccedil;&otilde;es de habitante</a>
+        {% else %}
+        <a
+          role="button"
+          class="btn btn-success"
+          target="_blank"
+          href="{{
+            url_for(
+              'goworking.habitante_cadeira',
+              id_cadeira = cadeira.id,
+            )
+          }}"
+        >Adicionar habitante &agrave; cadeira vazia</a>
+        {% endif %}
       </div> <!-- modal-footer justify-content-center -->
     </div> <!-- modal-content -->
   </div> <!-- modal-dialog modal-lg modal-xl -->
 </div> <!-- modal fade -->
-{% endfor %} <!-- endfor mesa in mesas -->
+{% endfor %} <!-- endfor cadeira in cadeiras -->
 {% endblock %}
