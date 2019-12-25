@@ -145,8 +145,8 @@
             <td>{{ habitante.cpf }}</td>
             <td>{{ habitante.desc }}</td>
             <td><a href="{{ url_for('goworking.empresa', empresa = habitante.id_empresa) }}" target="_self">{{ habitante.empresa.nome }}</a></td>
-            <td><a href="{{ url_for('goworking.cadeira', mesa = habitante.id_cadeira) }}" target="_self">{{ habitante.cadeira.numero }}</a></td>
-            <td>&nbsp;</td>
+            <td>{{ habitante.cadeira.numero }}</td>
+            <td>{% if habitante.cadeira.mesa %}{{ habitante.cadeira.mesa.numero }}{% endif %}</td>
             <td>{{ habitante.data_entrada|data }}</td>
             <td>{{ habitante.data_renovacao|data }}</td>
             <td>{{ habitante.data_saida|data }}</td>

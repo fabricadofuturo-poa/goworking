@@ -132,18 +132,18 @@ class NovaHabitanteForm(FlaskForm):
   )
   empresa = QuerySelectField(
     u"Empresa",
-    query_factory=empresas,
-    get_label='nome',
-    allow_blank=True,
-    blank_text=u"Selecione uma Empresa...",
+    query_factory = empresas,
+    get_label = 'nome',
+    allow_blank = True,
+    blank_text = u"Selecione uma Empresa...",
     validators = [Optional()],
   )
   cadeira = QuerySelectField(
     u"Cadeira",
-    query_factory=cadeiras,
-    get_label='numero',
-    allow_blank=True,
-    blank_text=u"Selecione uma Cadeira...",
+    query_factory = cadeiras,
+    get_label = 'numero',
+    allow_blank = True,
+    blank_text = u"Selecione uma Cadeira...",
     validators = [Optional()],
   )
   submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
