@@ -175,20 +175,6 @@ def login():
     title=u"Login",
   )
 
-#html_content = """
-#<form action="" method=post>
-#  <dl>
-#    <dt>Username:
-#    <dd><input type=text name=username>
-#    <dt>Password:
-#    <dd><input type=password name=password>
-#  </dl>
-#  <p>
-#    <input type=submit value=Login>
-#    <input type=hidden value="{{ next or '' }}" name=next>
-#</form>
-#"""
-
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
   if current_user.is_authenticated:

@@ -24,6 +24,16 @@ Data de entrega: Sexta Feira, 12 de dezembro de 2019
 * Todos cadastros funcionando (habitantes e empresas, além de espaços, mesas e cadeiras);
 * Atualizar dados não está funcionando corretamente. Para alterar informações é necessário recadastrar;
 
+v 0.3
+---
+
+Data de entrega: Quarta Feira, 25 de dezembro de 2019
+
+* Editar habitantes e empresas está funcionando corretamente;
+* Somente funções pertinentes aparecem pra a Ethiele;
+* Alterações de UX específicas para a Ethiele:
+  * Ao clicar em uma cadeira vazia, é exibido um botão de adicionar novo habitante com formulário específico para este fim;
+
 Instruções
 ---
 
