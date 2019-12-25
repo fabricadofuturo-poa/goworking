@@ -66,6 +66,7 @@
             <th>Nome</th>
             <th>CNPJ</th>
             <th>Descri&ccedil;&atilde;o</th>
+            <th>Habitantes</th>
           </tr>
         </thead>
         <tbody>
@@ -73,13 +74,20 @@
           <tr>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a role="button" class="btn btn-info" href="{{ url_for('goworking.empresa_editar', empresa_id = empresa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
-                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.empresa_apagar', empresa_id = empresa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
+                <a role="button" class="btn btn-info" href="{{ url_for('goworking.empresa_editar', id = empresa.id) }}" target="_self"><i class="fas fa-user-edit"></i></a>
+                <a role="button" class="btn btn-danger" href="{{ url_for('goworking.empresa_apagar', id = empresa.id) }}" target="_self"><i class="fas fa-minus-circle"></i></a>
               </div>
             </td>
             <td>{{ empresa.nome }}</td>
             <td>{{ empresa.cnpj }}</td>
             <td>{{ empresa.desc }}</td>
+            <td>
+              <div class="btn-group btn-group-sm btn-group-vertical" role="group">
+              {% for habitante in empresa.habitantes %}
+                <a role="button" class="btn btn-secondary" href="{{ url_for('goworking.habitante_editar', id = habitante.id) }}" target="_self">{{ habitante.nome }}</a>
+              {% endfor %}
+              </div>
+            </td>
           </tr>
           {% endfor %} <!-- empresa in empresas -->
         </tbody>

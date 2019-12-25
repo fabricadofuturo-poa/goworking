@@ -34,7 +34,6 @@ from flask_login import login_required
 
 from blueprints.goworking.controllers import (
   NovaHabitanteForm,
-  NovaHabitanteComCadeiraForm,
   EditarHabitanteForm,
   custom_uuid,
 )
@@ -159,7 +158,7 @@ def habitante():
 
 @bp.route('/habitante/<string:id_cadeira>', methods=['GET', 'POST'])
 @login_required
-def habitante_cadeira(id_cadeira = None):
+def habitante_cadeira(id_cadeira = custom_uuid.nil_uuid):
   try:
     habitantes_object = habitante_model.query.order_by(
       habitante_model.nome).all()
@@ -265,7 +264,6 @@ def habitante_cadeira(id_cadeira = None):
       form = form,
     )
   except Exception as e:
-    raise
     abort(500, str(e))
   abort(500)
 
@@ -352,7 +350,7 @@ def habitante_editar(id = custom_uuid.nil_uuid):
         if form.cadeira.data is not None:
           habitante_object.id_cadeira = form.cadeira.data.id
         try:
-          db.session.add(habitante_object)
+          #~ db.session.add(habitante_object)
           db.session.commit()
           flash(
             u"Deu certo! Dados de %s atualizados"
@@ -378,7 +376,6 @@ def habitante_editar(id = custom_uuid.nil_uuid):
       form = form,
     )
   except Exception as e:
-    raise
     abort(500, str(e))
   abort(500)
 

@@ -15,7 +15,9 @@
   <div class="col-2">&nbsp;</div>
   <div class="col-2 table-primary">Cadeira ocupada</div>
   <div class="col-2 table-success">Cadeira Vazia</div>
+<!--
   <div class="col-2 table-warning">Mesa</div>
+-->
 <!--
   <div class="col badge-secondary">Corredor (vazio)</div>
 -->
@@ -338,7 +340,7 @@
           href="{{
             url_for(
               'goworking.empresa',
-              empresa = empresa.id,
+              id = empresa.id,
             )
           }}"
         >Editar informa&ccedil;&otilde;es</a>

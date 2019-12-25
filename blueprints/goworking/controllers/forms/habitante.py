@@ -147,48 +147,6 @@ class NovaHabitanteForm(FlaskForm):
     validators = [Optional()],
   )
   submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
-  
-class NovaHabitanteComCadeiraForm(FlaskForm):
-  nome = StringField(
-    u"Nome",
-    validators = [
-      DataRequired(message = u"Faltou o Nome da Habitante"),
-    ],
-    description=u"Jocimara dos Santos",
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Faltou o Nome da Habitante");',
-      'oninput': 'this.setCustomValidity("");',
-    }),
-  )
-  cpf = StringField(
-    u"CPF",
-    validators = [
-      Optional(),
-      Length(11, message = u"CPF tem 11 dígitos!"),
-      Integer(message = u"Somente números."),
-    ],
-    description=u"12345678901",
-  )
-  desc = TextAreaField(
-    u"Descrição",
-    description=u"Escreva o que quiser sobre a(o) habitante aqui, depois a \
-      gente vai organizando em outros campos conforme a necessidade ;)",
-    validators = [Optional()],
-    render_kw=({
-      'rows': '6',
-      'cols': '45',
-    }),
-  )
-  empresa = QuerySelectField(
-    u"Empresa",
-    query_factory=empresas,
-    get_label='nome',
-    allow_blank=True,
-    blank_text=u"Selecione uma Empresa...",
-    validators = [Optional()],
-  )
-  cadeira = StringField()
-  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
 
 class EditarHabitanteForm(NovaHabitanteForm):
   id = StringField(widget=HiddenInput())

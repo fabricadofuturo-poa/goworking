@@ -35,6 +35,5 @@ from blueprints.goworking.controllers.forms.goworking import (
 
 from blueprints.goworking.controllers.forms.habitante import (
   NovaHabitanteForm,
-  NovaHabitanteComCadeiraForm,
   EditarHabitanteForm,
 )
