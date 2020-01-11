@@ -77,7 +77,8 @@ class NovaHabitanteForm(FlaskForm):
     ],
     description=u"Jocimara dos Santos",
     render_kw=({
-      'oninvalid': 'this.setCustomValidity("Faltou o Nome da Habitante");',
+      'oninvalid':
+        'this.setCustomValidity("Faltou o Nome da Habitante");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
@@ -85,15 +86,20 @@ class NovaHabitanteForm(FlaskForm):
     u"CPF",
     validators = [
       Optional(),
-      #~ Length(11, message = u"CPF tem 11 dígitos!"),
+      Length(
+        min = 11,
+        max = 14,
+        message = u"CPF tem 11 dígitos e 14 caracteres!",
+      ),
       #~ Integer(message = u"Somente números."),
     ],
     description=u"12345678901",
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre a(o) habitante aqui, depois a \
-      gente vai organizando em outros campos conforme a necessidade ;)",
+    description = u"Escreva o que quiser sobre a(o) habitante aqui, \
+      depois a gente vai organizando em outros campos conforme a \
+      necessidade ;)",
     validators = [Optional()],
     render_kw=({
       'rows': '6',
@@ -146,8 +152,14 @@ class NovaHabitanteForm(FlaskForm):
     blank_text = u"Selecione uma Cadeira...",
     validators = [Optional()],
   )
-  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
+  submit = SubmitField(
+    u"Cadastrar",
+    render_kw = ({'class': 'btn btn-primary'}),
+  )
 
 class EditarHabitanteForm(NovaHabitanteForm):
   id = StringField(widget=HiddenInput())
-  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
+  submit = SubmitField(
+    u"Atualizar",
+    render_kw = ({'class': 'btn btn-info'}),
+  )

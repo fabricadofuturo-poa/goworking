@@ -144,7 +144,7 @@
               </div>
             </td>
             <td>{{ habitante.nome }}</td>
-            <td>{{ habitante.cpf }}</td>
+            <td>{{ habitante.cpf|cpf }}</td>
             <td>{{ habitante.desc }}</td>
             <td><a href="{{ url_for('goworking.empresa', empresa = habitante.id_empresa) }}" target="_self">{{ habitante.empresa.nome }}</a></td>
             <td>{{ habitante.cadeira.numero }}</td>

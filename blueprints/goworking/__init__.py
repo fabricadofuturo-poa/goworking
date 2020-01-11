@@ -33,14 +33,25 @@ from blueprints.goworking.controllers.filters import (
   filtro_data,
   filtro_tjemse,
   filtro_dezena,
+  filtro_cpf,
+  filtro_cnpj,
 )
 app.jinja_env.filters['data'] = filtro_data
 app.jinja_env.filters['nome'] = filtro_tjemse
 app.jinja_env.filters['dezena'] = filtro_dezena
+app.jinja_env.filters['cpf'] = filtro_cpf
+app.jinja_env.filters['cnpj'] = filtro_cnpj
 
 ## Blueprint
 from flask import Blueprint
-bp = Blueprint('goworking', __name__, static_folder='static', template_folder='templates', url_prefix='/goworking', root_path='blueprints/goworking')
+bp = Blueprint(
+  'goworking',
+  __name__,
+  static_folder = 'static',
+  template_folder = 'templates',
+  url_prefix = '/goworking',
+  root_path = 'blueprints/goworking',
+)
 
 @login_manager.unauthorized_handler
 def unauthorized():

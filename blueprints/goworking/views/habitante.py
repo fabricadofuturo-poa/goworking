@@ -17,6 +17,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  
 
+import re
 from datetime import datetime
 
 from blueprints.goworking import bp
@@ -69,7 +70,11 @@ def habitante():
     if 'nome' in request.args:
       habitante_object.nome = request.args.get('nome')
     if 'cpf' in request.args:
-      habitante_object.cpf = request.args.get('cpf')
+      habitante_object.cpf = re.sub(
+        r'[^\d]*',
+        '',
+        request.args.get('cpf'),
+      )
     if 'desc' in request.args:
       habitante_object.desc = request.args.get('desc')
     if 'data_entrada' in request.args:
@@ -85,7 +90,7 @@ def habitante():
     if form.validate_on_submit():
       try:
         habitante_object.nome = form.nome.data
-        habitante_object.cpf = form.cpf.data
+        habitante_object.cpf = re.sub(r'[^\d]*', '', form.cpf.data)
         habitante_object.desc = form.desc.data
         habitante_object.data_entrada = form.data_entrada.data
         habitante_object.data_saida = form.data_saida.data
@@ -177,7 +182,11 @@ def habitante_cadeira(id_cadeira = custom_uuid.nil_uuid):
     if 'nome' in request.args:
       habitante_object.nome = request.args.get('nome')
     if 'cpf' in request.args:
-      habitante_object.cpf = request.args.get('cpf')
+      habitante_object.cpf = re.sub(
+        r'[^\d]*',
+        '',
+        request.args.get('cpf'),
+      )
     if 'desc' in request.args:
       habitante_object.desc = request.args.get('desc')
     if 'data_entrada' in request.args:
@@ -196,7 +205,7 @@ def habitante_cadeira(id_cadeira = custom_uuid.nil_uuid):
     if form.validate_on_submit():
       try:
         habitante_object.nome = form.nome.data
-        habitante_object.cpf = form.cpf.data
+        habitante_object.cpf = re.sub(r'[^\d]*', '', form.cpf.data)
         habitante_object.desc = form.desc.data
         habitante_object.data_entrada = form.data_entrada.data
         habitante_object.data_saida = form.data_saida.data
@@ -283,7 +292,11 @@ def habitante_editar(id = custom_uuid.nil_uuid):
     if 'nome' in request.args:
       habitante_object.nome = request.args.get('nome')
     if 'cpf' in request.args:
-      habitante_object.cpf = request.args.get('cpf')
+      habitante_object.cpf = re.sub(
+        r'[^\d]*',
+        '',
+        request.args.get('cpf'),
+      )
     if 'desc' in request.args:
       habitante_object.desc = request.args.get('desc')
     if 'data_entrada' in request.args:
@@ -302,7 +315,7 @@ def habitante_editar(id = custom_uuid.nil_uuid):
         if form.nome.data is not None:
           habitante_object.nome = form.nome.data
         if form.cpf.data is not None:
-          habitante_object.cpf = form.cpf.data
+          habitante_object.cpf = re.sub(r'[^\d]*', '', form.cpf.data)
         if form.desc.data is not None:
           habitante_object.desc = form.desc.data
         if form.data_entrada.data is not None:

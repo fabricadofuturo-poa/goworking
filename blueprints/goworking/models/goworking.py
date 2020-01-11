@@ -34,7 +34,11 @@ class espaco_v1(db.Model):
   ordem = db.Column(db.Integer(), default=0)
   desc = db.Column(db.Text(), nullable=True)
 
-  mesa = relationship('mesa_v1', uselist=False, back_populates='espaco')
+  mesa = relationship(
+    'mesa_v1',
+    uselist=False,
+    back_populates='espaco',
+  )
 
   def get_id(self):
     return self.id
@@ -68,7 +72,11 @@ class mesa_v1(db.Model):
 
   id_espaco = db.Column(db.String(36), db.ForeignKey(espaco_v1.id))
 
-  espaco = relationship('espaco_v1', uselist=False, back_populates='mesa')
+  espaco = relationship(
+    'espaco_v1',
+    uselist=False,
+    back_populates='mesa',
+  )
   cadeiras = relationship('cadeira_v1', order_by='cadeira_v1.ordem')
 
   def get_id(self):
@@ -138,7 +146,7 @@ class empresa_v1(db.Model):
 
   nome = db.Column(db.String(255), index=False, unique=False,
     nullable=False, default=u"Nenhuma")
-  cnpj = db.Column(db.String(18), index=False, unique=False,
+  cnpj = db.Column(db.String(14), index=False, unique=False,
     nullable=True, default='00000000000000')
   desc = db.Column(db.Text(), nullable=True)
 
@@ -172,7 +180,7 @@ class habitante_v1(db.Model):
 
   nome = db.Column(db.String(255), index=False, unique=False,
     nullable=False, default=u"Ninguém")
-  cpf = db.Column(db.String(14), index=False, unique=False,
+  cpf = db.Column(db.String(11), index=False, unique=False,
     nullable=True, default='00000000000')
   desc = db.Column(db.Text(), nullable=True)
   data_entrada = db.Column(db.DateTime, index=False, unique=False,

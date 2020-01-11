@@ -229,7 +229,7 @@
         {% if habitante.cpf %}
           <div class="row">
             <div class="col-6 ml-auto">CPF</div>
-            <div class="col-6 ml-auto">{{ habitante.cpf }}</div>
+            <div class="col-6 ml-auto">{{ habitante.cpf|cpf }}</div>
           </div> <!-- row -->
         {% endif %}
         {% if habitante.desc %}
@@ -313,7 +313,7 @@
         {% if empresa.cnpj %}
           <div class="row">
             <div class="col-6 ml-auto">CNPJ</div>
-            <div class="col-6 ml-auto">{{ empresa.cnpj }}</div>
+            <div class="col-6 ml-auto">{{ empresa.cnpj|cnpj }}</div>
           </div> <!-- row -->
         {% endif %}
         {% if empresa.desc %}

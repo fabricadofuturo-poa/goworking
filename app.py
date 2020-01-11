@@ -31,8 +31,8 @@ except Exception as e:
   print(u"Arquivo de configuração não encontrado. Exceção: %s" % (e))
 
 ## Flask WTF
-#from flask_wtf.csrf import CSRFProtect
-#csrf = CSRFProtect(app)
+from flask_wtf.csrf import CSRFProtect
+csrf = CSRFProtect(app)
 
 ## Flask Login
 from flask_login import LoginManager
@@ -45,11 +45,7 @@ login_manager.login_message_category = 'info'
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-## Jinja
-#from eat.controllers.filters import filtro_data_estoque
-#app.jinja_env.filters['data_estoque'] = filtro_data_estoque
+migrate = Migrate(app, db, compare_type = True)
 
 ## Log
 ## TODO não sei se funciona desta forma os logs, provavelmente somente uma destas configurações (a última?) esteja funcionando de fato.
@@ -77,14 +73,15 @@ def index():
 from blueprints.goworking import bp as goworking_bp
 app.register_blueprint(goworking_bp, url_prefix="/goworking")
 
-## flask shell
+## Flask shell
 @app.shell_context_processor
 def make_shell_context():
   from blueprints.goworking.controllers.dummy import dados_mesas
   from copy import deepcopy
   return {'db': db, 'map': app.url_map, 'dados': deepcopy(dados_mesas())}
 
-#login.init_app(app)
-#db.init_app(app)
-#print(app.url_map)
+# ~ login.init_app(app)
+# ~ db.init_app(app)
+# ~ migrate.init_app(app)
+# ~ print(app.url_map)
 

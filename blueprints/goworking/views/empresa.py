@@ -17,6 +17,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  
 
+import re
 from datetime import datetime
 
 from blueprints.goworking import bp
@@ -72,10 +73,10 @@ def empresa():
     if form.validate_on_submit():
       try:
         empresa_object.nome = form.nome.data
-        empresa_object.cnpj = form.cnpj.data
+        empresa_object.cnpj = re.sub(r'[^\d]*', '', form.cnpj.data)
         empresa_object.desc = form.desc.data
-        if form.empresa.data is not None:
-          empresa_object.id_empresa = form.empresa.data.id
+        # ~ if form.empresa.data is not None:
+          # ~ empresa_object.id_empresa = form.empresa.data.id
       except Exception as e:
         mensagem = u"Falha tentando criar empresa! \
           Erro: %s" % (str(e))
@@ -142,7 +143,7 @@ def empresa_editar(id = custom_uuid.nil_uuid):
         if form.nome.data is not None:
           empresa_object.nome = form.nome.data
         if form.cnpj.data is not None:
-          empresa_object.cnpj = form.cnpj.data
+          empresa_object.cnpj = re.sub(r'[^\d]*', '', form.cnpj.data)
         if form.desc.data is not None:
           empresa_object.desc = form.desc.data
       except Exception as e:

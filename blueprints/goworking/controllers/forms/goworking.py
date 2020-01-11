@@ -122,15 +122,16 @@ class NovaEspacoForm(FlaskForm):
     validators = [
       DataRequired(message = u"Exemplo: 01 para o espaço 01"),
     ],
-    description='Exemplo: 01 para o espaço 01',
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Exemplo: 01 para o espaço 01");',
+    description = 'Exemplo: 01 para o espaço 01',
+    render_kw = ({
+      'oninvalid': 'this.setCustomValidity("Exemplo: 01 para o espaço \
+        01");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre o espaço aqui, depois a \
+    description = u"Escreva o que quiser sobre o espaço aqui, depois a \
       gente vai organizando em outros campos conforme a necessidade ;)",
     validators = [Optional()],
     render_kw=({
@@ -140,15 +141,21 @@ class NovaEspacoForm(FlaskForm):
   )
   ordem = SelectField(
     u"Posição do espaço no goworking",
-    coerce=int,
-    choices=ordens_mesas,
-    render_kw=({'class': 'form-group'})
+    coerce = int,
+    choices = ordens_mesas,
+    render_kw = ({'class': 'form-group'})
   )
-  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
+  submit = SubmitField(
+    u"Cadastrar",
+    render_kw = ({'class': 'btn btn-primary'}),
+  )
 
 class EditarEspacoForm(NovaEspacoForm):
-  id = StringField(widget=HiddenInput())
-  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
+  id = StringField(widget = HiddenInput())
+  submit = SubmitField(
+    u"Atualizar",
+    render_kw = ({'class': 'btn btn-info'}),
+  )
 
 class NovaMesaForm(FlaskForm):
   numero = StringField(
@@ -156,15 +163,16 @@ class NovaMesaForm(FlaskForm):
     validators = [
       DataRequired(message = u"Exemplo: 01 para a mesa 01"),
     ],
-    description='Exemplo: 01 para a mesa 01',
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Exemplo: 01 para a mesa 01");',
+    description = 'Exemplo: 01 para a mesa 01',
+    render_kw = ({
+      'oninvalid': 'this.setCustomValidity("Exemplo: 01 para a mesa \
+        01");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre a mesa aqui, depois a \
+    description = u"Escreva o que quiser sobre a mesa aqui, depois a \
       gente vai organizando em outros campos conforme a necessidade ;)",
     validators = [Optional()],
     render_kw=({
@@ -174,15 +182,17 @@ class NovaMesaForm(FlaskForm):
   )
   id_espaco = QuerySelectField(
     u"Espaço",
-    query_factory=espacos,
-    allow_blank=False,
-    get_label='numero',
-    blank_text=u"Selecione um Espaço...",
-    validators=[DataRequired(message = u"Selecione um Espaço. Não tem nenhum? \
-      Cadastre!")],
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Selecione um Espaço. Não tem \
-        nenhum? Cadastre!");',
+    query_factory = espacos,
+    allow_blank = False,
+    get_label = 'numero',
+    blank_text = u"Selecione um Espaço...",
+    validators = [
+      DataRequired(message = u"Selecione um Espaço. Não tem nenhum? \
+      Cadastre!"),
+    ],
+    render_kw = ({
+      'oninvalid': 'this.setCustomValidity("Selecione um Espaço. Não \
+        tem nenhum? Cadastre!");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
@@ -192,60 +202,76 @@ class NovaMesaForm(FlaskForm):
     choices=ordens_mesas,
     render_kw=({'class': 'form-group'})
   )
-  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
+  submit = SubmitField(
+    u"Cadastrar",
+    render_kw = ({'class': 'btn btn-primary'}),
+  )
 
 class EditarMesaForm(NovaMesaForm):
   id = StringField(widget=HiddenInput())
-  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
+  submit = SubmitField(
+    u"Atualizar",
+    render_kw = ({'class': 'btn btn-info'}),
+  )
 
 class NovaCadeiraForm(FlaskForm):
   numero = StringField(
     u"Número",
     validators = [
-      DataRequired(message = u"Exemplo: 01-A para a cadeira A da mesa 01"),
+      DataRequired(message = u"Exemplo: 01-A para a cadeira A da mesa \
+        01"),
     ],
-    description='Exemplo: 01-A para a cadeira A da mesa 01',
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Exemplo: 01-A para a cadeira A da \
-        mesa 01");',
+    description = 'Exemplo: 01-A para a cadeira A da mesa 01',
+    render_kw = ({
+      'oninvalid': 'this.setCustomValidity("Exemplo: 01-A para a \
+        cadeira A da mesa 01");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
   ordem = RadioField(
     u"Posição da cadeira no goworking",
-    coerce=int,
-    choices=ordens_cadeiras,
-    render_kw=({'class': 'form-group'})
+    coerce = int,
+    choices = ordens_cadeiras,
+    render_kw = ({'class': 'form-group'})
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre a cadeira aqui, depois a \
-      gente vai organizando em outros campos conforme a necessidade ;)",
+    description = u"Escreva o que quiser sobre a cadeira aqui, depois \
+      a gente vai organizando em outros campos conforme a necessidade \
+      ;)",
     validators = [Optional()],
-    render_kw=({
+    render_kw = ({
       'rows': '6',
       'cols': '45',
     }),
   )
   id_mesa = QuerySelectField(
     u"Mesa",
-    query_factory=mesas,
-    allow_blank=False,
-    get_label='numero',
-    blank_text=u"Selecione uma Mesa...",
-    validators=[DataRequired(message = u"Selecione uma Mesa. Não tem nenhuma? \
-      Cadastre!")],
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Selecione uma Mesa. Não tem \
-        nenhuma? Cadastre!");',
+    query_factory = mesas,
+    allow_blank = False,
+    get_label = 'numero',
+    blank_text = u"Selecione uma Mesa...",
+    validators = [
+      DataRequired(message = u"Selecione uma Mesa. Não tem nenhuma? \
+      Cadastre!"),
+    ],
+    render_kw = ({
+      'oninvalid': 'this.setCustomValidity("Selecione uma Mesa. Não \
+          tem nenhuma? Cadastre!");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
-  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
+  submit = SubmitField(
+    u"Cadastrar",
+    render_kw = ({'class': 'btn btn-primary'}),
+  )
 
 class EditarCadeiraForm(NovaCadeiraForm):
   id = StringField(widget=HiddenInput())
-  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
+  submit = SubmitField(
+    u"Atualizar",
+    render_kw = ({'class': 'btn btn-info'}),
+  )
 
 class NovaEmpresaForm(FlaskForm):
   nome = StringField(
@@ -254,8 +280,9 @@ class NovaEmpresaForm(FlaskForm):
       DataRequired(message = u"Faltou o Nome da Empresa"),
     ],
     description=u"Fábrica do Futuro",
-    render_kw=({
-      'oninvalid': 'this.setCustomValidity("Faltou o Nome da Empresa");',
+    render_kw = ({
+      'oninvalid':
+        'this.setCustomValidity("Faltou o Nome da Empresa");',
       'oninput': 'this.setCustomValidity("");',
     }),
   )
@@ -263,23 +290,34 @@ class NovaEmpresaForm(FlaskForm):
     u"CNPJ",
     validators = [
       Optional(),
-      #~ Length(14, message = u"CNPJ tem 14 dígitos!"),
-      #~ Integer(message = u"Somente números."),
+      Length(
+        min = 14,
+        max = 18,
+        message = u"CNPJ tem 14 dígitos e 18 caracteres!",
+      ),
+      # ~ Integer(message = u"Somente números."),
     ],
     description=u"12345678901234",
   )
   desc = TextAreaField(
     u"Descrição",
-    description=u"Escreva o que quiser sobre a empresa aqui, depois a gente \
-      vai organizando em outros campos conforme a necessidade ;)",
+    description = u"Escreva o que quiser sobre a empresa aqui, depois \
+      a gente vai organizando em outros campos conforme a necessidade \
+      ;)",
     validators = [Optional()],
-    render_kw=({
+    render_kw = ({
       'rows': '6',
       'cols': '45',
     }),
   )
-  submit = SubmitField(u"Cadastrar", render_kw=({'class': 'btn btn-primary'}))
+  submit = SubmitField(
+    u"Cadastrar",
+    render_kw = ({'class': 'btn btn-primary'}),
+  )
 
 class EditarEmpresaForm(NovaEmpresaForm):
   id = StringField(widget=HiddenInput())
-  submit = SubmitField(u"Atualizar", render_kw=({'class': 'btn btn-info'}))
+  submit = SubmitField(
+    u"Atualizar",
+    render_kw = ({'class': 'btn btn-info'}),
+  )

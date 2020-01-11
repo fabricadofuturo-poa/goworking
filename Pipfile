@@ -19,4 +19,4 @@ python-dotenv = "*"
 wtforms-validators = "*"
 
 [requires]
-python_version = "3"
+python_version = "3.7.3"

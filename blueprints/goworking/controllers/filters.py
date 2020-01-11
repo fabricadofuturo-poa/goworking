@@ -15,3 +15,14 @@ def filtro_tjemse(string):
 def filtro_dezena(numero):
   return "{:02d}".format(numero)
 
+def filtro_cpf(cpf):
+  cpf = str(cpf)
+  if len(cpf) == 11:
+    return '{}.{}.{}-{}'.format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
+  return cpf
+
+def filtro_cnpj(cnpj):
+  cpnj = str(cnpj)
+  if len(cnpj) == 14:
+    return '{}.{}.{}/{}-{}'.format(cnpj[:2], cnpj[2:5], cnpj[5:8], cnpj[8:12], cnpj[12:])
+  return cpnj
