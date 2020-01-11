@@ -39,6 +39,7 @@ from blueprints.goworking.models import (
 from jinja2 import exceptions
 
 @bp.route('/')
+@login_required
 def index():
   espacos = espaco_model.query.order_by(espaco_model.ordem).all()
   mesas = mesa_model.query.order_by(mesa_model.ordem).all()
