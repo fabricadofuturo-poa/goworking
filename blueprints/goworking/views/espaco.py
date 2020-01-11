@@ -1,7 +1,7 @@
 # vim:fileencoding=utf-8
-#  Go Working - Controle das Espaços
+#  Go Working - Controle das Mesas
 #  
-#  Copyright (C) 2019 Fábrica do Futuro
+#  Copyright (C) 2019-2020 Fábrica do Futuro
 #  
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by

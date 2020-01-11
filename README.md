@@ -1,38 +1,75 @@
 goworking-mesas
 ===
 
-Sistema para controle das mesas do Go Working da Fábrica do Futuro.
+Sistema para controle das mesas do Go Working da Fábrica do Futuro.  
 
-Copyright (c) 2019 Iuri Guilherme, Fábrica do Futuro
+Copyright (C) 2019-2020 Fábrica do Futuro  
 
-v 0.1
+This program is free software: you can redistribute it and/or modify  
+it under the terms of the GNU General Public License as published by  
+the Free Software Foundation, either version 3 of the License, or  
+(at your option) any later version.  
+
+This program is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
+GNU General Public License for more details.  
+
+You should have received a copy of the GNU General Public License  
+along with this program.  If not, see <http://www.gnu.org/licenses/>.  
+
+Releases
 ---
 
-Data de entrega: Sexta Feira, 06 de dezembro de 2019
+### v 0.1
 
-### Escopo
+Data de entrega: Sexta Feira, 06 de dezembro de 2019  
 
-* Ethiele deve conseguir visualizar as mesas do goworking;
-* Ethiele deve conseguir visualizar quais cadeiras estão ocupadas, por quem, de que empresa;
-* Ethiele deve conseguir editar informações sobre cadeiras, pessoas, empresas;
+#### Escopo
 
-v 0.2
+* Ethiele deve conseguir visualizar as mesas do goworking;  
+* Ethiele deve conseguir visualizar quais cadeiras estão ocupadas, por
+  quem, de que empresa;  
+* Ethiele deve conseguir editar informações sobre cadeiras, pessoas,
+  empresas;  
+
+### v 0.2
+
+Data de entrega: Sexta Feira, 12 de dezembro de 2019  
+
+* Todos cadastros funcionando (habitantes e empresas, além de espaços,
+  mesas e cadeiras);  
+* Atualizar dados não está funcionando corretamente. Para alterar
+  informações é necessário recadastrar;  
+
+### v 0.3
+
+Data de entrega: Quarta Feira, 25 de dezembro de 2019  
+
+* Editar habitantes e empresas está funcionando corretamente;  
+* Somente funções pertinentes aparecem pra a Ethiele;  
+* Alterações de UX específicas para a Ethiele:  
+  * Ao clicar em uma cadeira vazia, é exibido um botão de adicionar novo
+    habitante com formulário específico para este fim;  
+
+### v 0.4
+
+Data de entrega: Sexta feira, 10 de janeiro de 2020  
+
+* Correta exibição e gravação de CPF e CNPJ;  
+
+Roadmap
 ---
 
-Data de entrega: Sexta Feira, 12 de dezembro de 2019
+TODO:
 
-* Todos cadastros funcionando (habitantes e empresas, além de espaços, mesas e cadeiras);
-* Atualizar dados não está funcionando corretamente. Para alterar informações é necessário recadastrar;
-
-v 0.3
----
-
-Data de entrega: Quarta Feira, 25 de dezembro de 2019
-
-* Editar habitantes e empresas está funcionando corretamente;
-* Somente funções pertinentes aparecem pra a Ethiele;
-* Alterações de UX específicas para a Ethiele:
-  * Ao clicar em uma cadeira vazia, é exibido um botão de adicionar novo habitante com formulário específico para este fim;
+- [ ] Documentar como usar com pipenv  
+- [ ] Aumentar de 4 para 5 colunas o esqueleto, acrescentar as cabines  
+- [ ] Ampliar o escopo do sistema com novas blueprints para contemplar
+  outras funcionalidades  
+- [ ] Migrar login para fora da blueprint do goworking  
+- [ ] Alterar nomes dos arquivos para por exemplo view_habitante.py,
+  model_habitante.py, etc.  
 
 Instruções
 ---
