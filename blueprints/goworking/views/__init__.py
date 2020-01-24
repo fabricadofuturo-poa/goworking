@@ -70,4 +70,3 @@ from blueprints.goworking.views import (
   empresa,
   habitante,
 )
-

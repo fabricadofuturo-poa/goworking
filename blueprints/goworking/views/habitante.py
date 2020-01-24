@@ -161,7 +161,7 @@ def habitante():
     abort(500, str(e))
   abort(500)
 
-@bp.route('/habitante/<string:id_cadeira>', methods=['GET', 'POST'])
+@bp.route('/habitante/cadeira/<string:id_cadeira>', methods=['GET', 'POST'])
 @login_required
 def habitante_cadeira(id_cadeira = custom_uuid.nil_uuid):
   try:
@@ -235,7 +235,7 @@ def habitante_cadeira(id_cadeira = custom_uuid.nil_uuid):
         mensagem = u"Cadeira já está ocupada, escolha outra!"
         flash(mensagem, 'danger')
         return redirect(url_for(
-          'goworking.habitante',
+          'goworking.habitante_cadeira',
           nome = form.nome.data,
           cpf = form.cpf.data,
           desc = form.desc.data,
@@ -392,6 +392,8 @@ def habitante_editar(id = custom_uuid.nil_uuid):
     abort(500, str(e))
   abort(500)
 
+## TODO Confirmar antes de apagar. Atualmente é muito fácil apagar sem 
+## querer.
 @bp.route(
   '/habitante/apagar/<string:id>',
   methods=['GET', 'POST', 'DELETE'],
