@@ -1,7 +1,8 @@
 goworking-map
 ===
 
-Sistema para controle das mesas do Go Working da Fábrica do Futuro.  
+Sistema para controle das mesas e salas do Go Working da Fábrica do 
+Futuro.  
 
 Copyright (C) 2019-2020 Fábrica do Futuro  
 
@@ -33,7 +34,7 @@ RGSoC 2020
 
 This project is part of Rails of Girls Summer of Code 2020. The offical 
 page for this project is at the 
-[RGSoC Teams App](https://teams.railsgirlssummerofcode.org/projects/366-improve-the-desks-control-system-for-the-coworking).  
+[RGSoC Teams App](https://teams.railsgirlssummerofcode.org/projects/366-improve-the-desks-and-rooms-control-system-for-the-coworking).  
 
 Releases
 ---
